@@ -1,0 +1,23 @@
+.romarr__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem 2rem;
+}
+
+.romarr__navbar-search {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.romarr__navbar-logo {
+    margin-right: 1rem;
+
+}
+
+.romarr__navbar-logo img {
+    scale: initial;
+}

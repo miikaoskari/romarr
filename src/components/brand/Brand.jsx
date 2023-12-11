@@ -3,7 +3,7 @@ import './brand.css'
 const Brand = () => {
     return (
         <div>
-            <h1>Sidebar</h1>
+            <h1>brand</h1>
 
         </div>
     );

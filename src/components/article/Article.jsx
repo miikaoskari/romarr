@@ -3,7 +3,7 @@ import './article.css'
 const Article = () => {
     return (
         <div>
-            <h1>Sidebar</h1>
+            <h1>article</h1>
 
         </div>
     );
