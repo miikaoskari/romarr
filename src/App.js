@@ -8,8 +8,8 @@ function App() {
     <div className="App">
       <div className="solid__bg">
           <Navbar></Navbar>
-          <Header></Header>
       </div>
+        <Header></Header>
         <Brand></Brand>
         <Features></Features>
         <Cta></Cta>

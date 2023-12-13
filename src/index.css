@@ -4,8 +4,8 @@
   --gradient-text: linear-gradient(90deg, rgba(155, 155, 155, 1) 0%, rgba(0, 188, 212, 1) 0%, rgba(238, 130, 238, 1) 100%);
   --gradient-bar: linear-gradient(90deg, rgba(155, 155, 155, 1) 0%, rgba(0, 188, 212, 1) 0%, rgba(238, 130, 238, 1) 100%);
 
-  --color-bg: #f5f5f5;
-  --color-navbar-bg: gray;
+  --color-bg: #959595;
+  --color-navbar-bg: transparent;
   --color-footer: #eaeaea;
   --color-text: #333;
 
