@@ -1,0 +1,94 @@
+.romarr__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 15rem;
+    font-family: var(--font-family);
+    font-size: 0.60rem;
+    position: relative;
+}
+
+.romarr__navbar::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 14rem;
+    right: 14rem;
+    bottom: 0;
+    border-bottom: 1.75px solid dimgray;
+}
+
+li {
+    display: inline;
+}
+
+a {
+    background-color: transparent;
+    color: #fff; /* You can set the text color */
+    border: transparent;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-family: var(--font-family);
+    font-weight: 600;
+    display: inline-block;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    border-radius: 12rem;
+}
+
+a:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+.romarr__navbar-user {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family);
+
+}
+
+.romarr__navbar-user button {
+    background-color: transparent;
+    color: #fff; /* You can set the text color */
+    border: transparent;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-family: var(--font-family);
+    font-weight: 600;
+    display: inline-block;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    border-radius: 12rem;
+}
+
+.romarr__navbar-user button:hover {
+    background-color: #000000;
+    color: #fff;
+}
+
+.romarr__navbar-search {
+
+}
+
+.romarr__navbar-logo {
+    margin-right: 1rem;
+
+}
+
+.romarr__navbar-logo img {
+    height: auto;
+    width: 7rem;
+}
+
+.romarr__navbar-user-icon {
+    margin-right: 0.5rem;
+}
