@@ -1,5 +1,6 @@
 :root {
-  --font-family: 'Cantarell', sans-serif;
+  --font-family: "Inter Var", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
 
   --gradient-text: linear-gradient(90deg, rgba(155, 155, 155, 1) 0%, rgba(0, 188, 212, 1) 0%, rgba(238, 130, 238, 1) 100%);
   --gradient-bar: linear-gradient(90deg, rgba(155, 155, 155, 1) 0%, rgba(0, 188, 212, 1) 0%, rgba(238, 130, 238, 1) 100%);

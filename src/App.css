@@ -6,7 +6,12 @@
 }
 
 body {
-  background: var(--color-bg)
+  background-image: url('./assets/jpg/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 a {
