@@ -1,6 +1,9 @@
 import React from 'react';
 import './navbar.css'
 import logo from '../../assets/png/romarr-high-resolution-logo-black-transparent.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
 const Navbar = () => {
     return (
         <div className="romarr__navbar">
@@ -18,7 +21,10 @@ const Navbar = () => {
 
             </div>
             <div className="romarr__navbar-user">
-                <button>User</button>
+                <button>
+                    <FontAwesomeIcon icon={faUser} />
+                    User
+                </button>
             </div>
         </div>
     );

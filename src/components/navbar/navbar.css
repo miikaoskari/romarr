@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 15rem;
+    padding: 0.3rem 15rem;
     font-family: var(--font-family);
     font-size: 0.60rem;
     position: relative;
@@ -34,14 +34,12 @@ a {
 .romarr__navbar-user {
     display: flex;
     align-items: center;
-
-
 }
 
 .romarr__navbar-user button {
     background-color: #fff;
     border: 0 solid #e2e8f0;
-    border-radius: 1.5rem;
+    border-radius: 2rem;
     box-sizing: border-box;
     color: #0d172a;
     cursor: pointer;
@@ -49,7 +47,6 @@ a {
     font-size: 1rem;
     font-weight: 600;
     line-height: 0.5;
-    padding: 1rem 1.6rem;
     text-align: center;
     text-decoration: none #0d172a solid;
     text-decoration-thickness: auto;
@@ -68,7 +65,7 @@ a {
 @media (min-width: 768px) {
     .romarr__navbar-user button {
         font-size: 1.125rem;
-        padding: 1rem 2rem;
+        padding: .75rem 1rem;
     }
 }
 
