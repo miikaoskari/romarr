@@ -8,25 +8,24 @@ import {Routes, Route} from 'react-router-dom';
 function App() {
     return (
         <div className="App">
-            <div className="solid__bg">
-                <Navbar>
-                    <Routes>
-                        <Route path="/" element={<Dashboard/>}/>
-                        <Route path={"/about"} element={<About/>}/>
-                        <Route path={"/activity"} element={<Activity/>}/>
-                        <Route path={"/games"} element={<Games/>}/>
-                        <Route path={"/settings"} element={<Settings/>}/>
-                    </Routes>
-                </Navbar>
+            <div className="container__navbar">
+                <Navbar></Navbar>
             </div>
-            <Header></Header>
-            <Brand></Brand>
-            <Features></Features>
-            <Cta></Cta>
-            <Blog></Blog>
-            <Footer></Footer>
+            <Routes>
+                <Route path="/" element={<Dashboard/>}/>
+                <Route path={"/about"} element={<About/>}/>
+                <Route path={"/activity"} element={<Activity/>}/>
+                <Route path={"/games"} element={<Games/>}/>
+                <Route path={"/settings"} element={<Settings/>}/>
+            </Routes>
+
+            <div className="container__body">
+                <Header></Header>
+                <Footer></Footer>
+            </div>
         </div>
-    );
+    )
+        ;
 }
 
 export default App;

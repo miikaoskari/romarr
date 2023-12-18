@@ -1,39 +1,30 @@
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  scroll-behavior: smooth;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
 }
 
+/* Disabled the background completely for the time being for easier modification */
 body {
-  background-image: url('./assets/jpg/background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
+
+    background-image: url('./assets/jpg/background.jpg');
+    background-repeat: no-repeat;
+    background-size: 350%;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
 }
 
 a {
-  color: unset;
-  text-decoration: none;
-}
-
-.solid__bg {
-  background: var(--color-navbar-bg);
-}
-
-.gradient__text {
-  background: var(--gradient-text);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    color: unset;
+    text-decoration: none;
 }
 
 .section__padding {
-  padding: 4rem 6rem;
+    padding: 2rem 10rem;
 }
 
 .section__margin {
-  margin: 4rem 6rem;
+    margin: 4rem 10rem;
 }
