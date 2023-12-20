@@ -10,7 +10,7 @@ body {
 
     background-image: url('./assets/jpg/background.jpg');
     background-repeat: no-repeat;
-    background-size: 350%;
+    background-size: 150%;
     background-attachment: fixed;
     min-height: 100vh;
     position: relative;

@@ -31,22 +31,24 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="flex-auto px-2 py-1">
-                    <Link to="/about" className={"px-2"}>
+                    <Link to="/about" className={"px-2 hover:rounded-2xl hover:bg-gray-50 py-2"}>
                         About
                     </Link>
-                    <Link to="/activity" className={"px-2"}>
+                    <Link to="/activity" className={"px-2 hover:rounded-2xl hover:bg-gray-50 py-2"}>
                         Activity
                     </Link>
-                    <Link to="/games" className={"px-2"}>
+                    <Link to="/games" className={"px-2 hover:rounded-2xl hover:bg-gray-50 py-2"}>
                         Games
                     </Link>
-                    <Link to="/settings" className={"px-2"}>
+                    <Link to="/settings" className={"px-2 hover:rounded-2xl hover:bg-gray-50 py-2"}>
                         Settings
                     </Link>
                 </div>
-                <div className="origin-right mx-2 py-1">
-                    <FontAwesomeIcon icon={faUser} size="1x" className={"px-2"}/>
-                    <span className={"px-2"}>User</span>
+                <div className="origin-right mx-2 py-1 px-2 hover:rounded-2xl hover:bg-gray-50">
+                    <Link to="/login">
+                        <FontAwesomeIcon icon={faUser} size="1x" className={"px-2"}/>
+                        <span className={"px-2"}>User</span>
+                    </Link>
                 </div>
             </div>
         </nav>
