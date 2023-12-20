@@ -3,8 +3,7 @@ import React from 'react';
 const Table = () => {
     return (
         <div>
-            <div
-                className={"relative overflow-x-auto sm:rounded-lg mx-36 flex flex-col items-center bg-white rounded-2xl shadow-2xl border-2"}>
+            <div className={"relative overflow-x-auto sm:rounded-lg mx-36 flex flex-col items-center bg-white rounded-2xl shadow-2xl border-2"}>
                 <table className={"w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"}>
                     <thead className={"text-xs text-gray-700 uppercase bg-gray-50"}>
                     <tr>
