@@ -10,7 +10,7 @@ const Grid = () => {
                     {
                         // card style
                     }
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={zelda}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold truncate text-black block capitalize">The Legend of Zelda:
@@ -20,7 +20,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={odyssey}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold text-black block capitalize">Mario Odyssey</p>
@@ -28,7 +28,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={odyssey}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold text-black block capitalize">Mario Odyssey</p>
@@ -36,7 +36,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={odyssey}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold text-black block capitalize">Mario Odyssey</p>
@@ -44,7 +44,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={odyssey}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold text-black block capitalize">Mario Odyssey</p>
@@ -52,7 +52,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={zelda}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold truncate text-black block capitalize">The Legend of Zelda:
@@ -62,7 +62,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={zelda}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold truncate text-black block capitalize">The Legend of Zelda:
@@ -72,7 +72,7 @@ const Grid = () => {
                             <p className="text-lg font-semibold text-black cursor-auto my-3"></p>
                         </div>
                     </div>
-                    <div className="bg-gray-50 rounded-2xl my-2 border-2">
+                    <div className="bg-gray-50 rounded-2xl my-2 border-2 hover:shadow-2xl duration-100">
                         <img className={"object-cover h-80 w-72 object-cover rounded-2xl"} src={zelda}></img>
                         <span className="text-gray-400 ml-3 mr-3 uppercase text-xs">nintendo</span>
                         <p className="ml-3 text-lg font-bold truncate text-black block capitalize">The Legend of Zelda:
