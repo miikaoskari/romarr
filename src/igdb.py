@@ -2,8 +2,8 @@ import json
 import http.client
 
 
-class Metadata:
-    def __init__(self, name=""):
+class Game:
+    def __init__(self):
         self.client_id = None
         self.secret_id = None
         self.access_id = None
@@ -34,6 +34,35 @@ class Metadata:
         self.checksum = None
         self.collections = None
 
+    def get_game_cover(self):
+        conn = http.client.HTTPSConnection("api.igdb.com")
+        payload = "fields *; where id=198580;"
+        headers = {
+            'Client-ID': self.client_id,
+            'Authorization': 'Bearer ' + self.access_id,
+            'Content-Type': 'application/json',
+        }
+        conn.request("POST", "/v4/covers", payload, headers)
+        res = conn.getresponse()
+        data = res.read()
+
+    def show_results(self):
+        pass
+
+    def parse_results(self, data):
+        data_dict = json.loads(data)
+        for key in data_dict[0]:
+            if hasattr(self, key):
+                setattr(self, key, data_dict[0][key])
+
+
+class Igdb:
+    def __init__(self, name=""):
+        self.client_id = None
+        self.secret_id = None
+        self.access_id = None
+        self.name = name
+
     def get_config(self):
         config_json = open("../config.json", "r")
         config = json.load(config_json)
@@ -46,7 +75,7 @@ class Metadata:
 
     def search_game(self):
         conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = "fields *; search \"" + self.name + "\"; limit 10;"
+        payload = "fields *; search \"" + self.name + "\"; limit 1;"
         headers = {
             'Client-ID': self.client_id,
             'Authorization': 'Bearer ' + self.access_id,
@@ -55,23 +84,12 @@ class Metadata:
         conn.request("POST", "/v4/games/", payload, headers)
         res = conn.getresponse()
         data = res.read()
-        print(data.decode("utf-8"))
-
-    def get_game_cover(self):
-        conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = "fields *; where id=198580;"
-        headers = {
-            'Client-ID': self.client_id,
-            'Authorization': 'Bearer ' + self.access_id,
-            'Content-Type': 'application/json',
-        }
-        conn.request("POST", "/v4/covers", payload, headers)
-        res = conn.getresponse()
-        data = res.read()
-        print(data.decode("utf-8"))
-
-    def show_results(self):
-        pass
+        data_dict = json.loads(data.decode("utf-8"))
+        for game in data_dict:
+            game_obj = Game()
+            game_obj.parse_results(json.dumps(game))
 
 
-
+meta = Game("The Witcher 3: Wild Hunt")
+meta.get_config()
+meta.search_game()
