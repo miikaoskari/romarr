@@ -9,6 +9,7 @@ class Game:
         self.artworks = None
         self.category = None
         self.cover = None
+        self.cover_url = None
         self.created_at = None
         self.final_release_date = None
         self.franchises = None
@@ -51,19 +52,17 @@ class Igdb:
         self.name = name
         self.games = []
 
-    def get_config(self):
+    @staticmethod
+    def get_config():
         config_json = open("../config.json", "r")
         config = json.load(config_json)
-
-        self.client_id = config["client_id"]
-        self.secret_id = config["secret_id"]
-        self.access_id = config["access_id"]
-
         config_json.close()
+
+        return config["client_id"], config["secret_id"], config["access_id"]
 
     def search_game(self):
         conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = "fields *; search \"" + self.name + "\"; limit 1;"
+        payload = f"fields *; search \"{self.name}\"; limit 10;"
         headers = {
             'Client-ID': self.client_id,
             'Authorization': 'Bearer ' + self.access_id,
@@ -73,13 +72,27 @@ class Igdb:
         res = conn.getresponse()
         data = res.read()
         data_dict = json.loads(data.decode("utf-8"))
-        for game in data_dict:
+        for data in data_dict:
             game_obj = Game()
-            game_obj.parse_results(json.dumps(game))
+            game_obj.parse_results(json.dumps(data))
             self.games.append(game_obj)
 
+    def get_game_cover(self):
+        conn = http.client.HTTPSConnection("api.igdb.com")
+        payload = f"fields *; where id={self.games[0].cover};"
+        headers = {
+            'Client-ID': self.client_id,
+            'Authorization': 'Bearer ' + self.access_id,
+            'Content-Type': 'application/json',
+        }
+        conn.request("POST", "/v4/covers", payload, headers)
+        res = conn.getresponse()
+        data = res.read()
+        print(data.decode("utf-8"))
 
-search = Igdb("Halo")
-search.get_config()
-search.search_game()
-search.games[0].show_results()
+
+client_id, secret_id, access_id = Igdb.get_config()
+search1 = Igdb("Halo")
+search1.get_config()
+search1.search_game()
+search1.get_game_cover()
