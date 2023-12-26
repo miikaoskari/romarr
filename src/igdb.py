@@ -76,10 +76,11 @@ class Igdb:
             game_obj = Game()
             game_obj.parse_results(json.dumps(data))
             self.games.append(game_obj)
+            self.get_game_cover(game_obj)
 
-    def get_game_cover(self):
+    def get_game_cover(self, game_obj):
         conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = f"fields *; where id={self.games[0].cover};"
+        payload = f"fields *; where id={game_obj.cover};"
         headers = {
             'Client-ID': self.client_id,
             'Authorization': 'Bearer ' + self.access_id,
@@ -88,11 +89,17 @@ class Igdb:
         conn.request("POST", "/v4/covers", payload, headers)
         res = conn.getresponse()
         data = res.read()
-        print(data.decode("utf-8"))
+        data_dict = json.loads(data.decode("utf-8"))
+        if data_dict:
+            url = data_dict[0]["url"]
+            url = url.lstrip("//")
+            game_obj.cover_url = url
 
 
 client_id, secret_id, access_id = Igdb.get_config()
 search1 = Igdb("Halo")
+search1.client_id = client_id
+search1.secret_id = secret_id
+search1.access_id = access_id
 search1.get_config()
 search1.search_game()
-search1.get_game_cover()
