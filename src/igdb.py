@@ -68,15 +68,30 @@ class Igdb:
             'Authorization': 'Bearer ' + self.access_id,
             'Content-Type': 'application/json',
         }
-        conn.request("POST", "/v4/games/", payload, headers)
-        res = conn.getresponse()
-        data = res.read()
-        data_dict = json.loads(data.decode("utf-8"))
-        for data in data_dict:
-            game_obj = Game()
-            game_obj.parse_results(json.dumps(data))
-            self.games.append(game_obj)
-            self.get_game_cover(game_obj)
+        # TODO: prevent duplicate code
+        try:
+            conn.request("POST", "/v4/games/", payload, headers)
+            res = conn.getresponse()
+            if res.status != 200:
+                print(f"HTTP request failed with status code {res.status}")
+                return
+            data = res.read()
+            try:
+                data_dict = json.loads(data.decode("utf-8"))
+            except json.JSONDecodeError:
+                print("Failed to parse JSON data")
+                return
+            for data in data_dict:
+                game_obj = Game()
+                try:
+                    game_obj.parse_results(json.dumps(data))
+                except (KeyError, AttributeError) as e:
+                    print(f"Failed to parse game data: {e}")
+                    continue
+                self.games.append(game_obj)
+                self.get_game_cover(game_obj)
+        except Exception as e:
+            print(f"HTTP request failed: {e}")
 
     def get_game_cover(self, game_obj):
         conn = http.client.HTTPSConnection("api.igdb.com")
@@ -86,14 +101,29 @@ class Igdb:
             'Authorization': 'Bearer ' + self.access_id,
             'Content-Type': 'application/json',
         }
-        conn.request("POST", "/v4/covers", payload, headers)
-        res = conn.getresponse()
-        data = res.read()
-        data_dict = json.loads(data.decode("utf-8"))
-        if data_dict:
-            url = data_dict[0]["url"]
-            url = url.lstrip("//")
-            game_obj.cover_url = url
+        # TODO: prevent duplicate code
+        # TODO: find a way to get covers for all games in single request
+        try:
+            conn.request("POST", "/v4/covers", payload, headers)
+            res = conn.getresponse()
+            if res.status != 200:
+                print(f"HTTP request failed with status code {res.status}")
+                return
+            data = res.read()
+            try:
+                data_dict = json.loads(data.decode("utf-8"))
+            except json.JSONDecodeError:
+                print("Failed to parse JSON data")
+                return
+            if data_dict:
+                try:
+                    url = data_dict[0]["url"]
+                    url = url.lstrip("//")
+                    game_obj.cover_url = url
+                except (KeyError, AttributeError) as e:
+                    print(f"Failed to parse cover data: {e}")
+        except Exception as e:
+            print(f"HTTP request failed: {e}")
 
 
 client_id, secret_id, access_id = Igdb.get_config()
