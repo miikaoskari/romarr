@@ -3,10 +3,7 @@ import http.client
 
 
 class Game:
-    def __init__(self):
-        self.client_id = None
-        self.secret_id = None
-        self.access_id = None
+    def __init__(self, name=""):
         self.id = None
         self.alternative_names = None
         self.artworks = None
@@ -34,26 +31,16 @@ class Game:
         self.checksum = None
         self.collections = None
 
-    def get_game_cover(self):
-        conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = "fields *; where id=198580;"
-        headers = {
-            'Client-ID': self.client_id,
-            'Authorization': 'Bearer ' + self.access_id,
-            'Content-Type': 'application/json',
-        }
-        conn.request("POST", "/v4/covers", payload, headers)
-        res = conn.getresponse()
-        data = res.read()
-
     def show_results(self):
-        pass
+        # print all the attributes of all the objects
+        for attribute, value in self.__dict__.items():
+            print(attribute, ":", value)
 
     def parse_results(self, data):
         data_dict = json.loads(data)
-        for key in data_dict[0]:
+        for key in data_dict:
             if hasattr(self, key):
-                setattr(self, key, data_dict[0][key])
+                setattr(self, key, data_dict[key])
 
 
 class Igdb:
@@ -62,6 +49,7 @@ class Igdb:
         self.secret_id = None
         self.access_id = None
         self.name = name
+        self.games = []
 
     def get_config(self):
         config_json = open("../config.json", "r")
@@ -88,8 +76,10 @@ class Igdb:
         for game in data_dict:
             game_obj = Game()
             game_obj.parse_results(json.dumps(game))
+            self.games.append(game_obj)
 
 
-meta = Game("The Witcher 3: Wild Hunt")
-meta.get_config()
-meta.search_game()
+search = Igdb("Halo")
+search.get_config()
+search.search_game()
+search.games[0].show_results()
