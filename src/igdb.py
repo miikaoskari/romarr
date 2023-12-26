@@ -103,3 +103,5 @@ search1.secret_id = secret_id
 search1.access_id = access_id
 search1.get_config()
 search1.search_game()
+for game in search1.games:
+    game.show_results()
