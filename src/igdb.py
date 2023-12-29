@@ -49,6 +49,8 @@ class Igdb:
         self.client_id = None
         self.secret_id = None
         self.access_id = None
+        self.limit = 4
+        self.count = 0
         self.name = name
         self.games = []
 
