@@ -1,5 +1,6 @@
 import json
 import http.client
+import os.path
 
 
 class Game:
@@ -54,13 +55,17 @@ class Igdb:
         self.name = name
         self.games = []
 
-    @staticmethod
-    def get_config():
-        config_json = open("../config.json", "r")
+    def get_config(self):
+        script_dir = os.path.dirname(__file__)
+        config_path = os.path.join(script_dir, "../config.json")
+        config_path = os.path.normpath(config_path)
+        config_json = open(config_path, "r")
         config = json.load(config_json)
         config_json.close()
 
-        return config["client_id"], config["secret_id"], config["access_id"]
+        self.client_id = config["client_id"]
+        self.access_id = config["access_id"]
+        self.secret_id = config["secret_id"]
 
     def search_game(self):
         conn = http.client.HTTPSConnection("api.igdb.com")
@@ -128,12 +133,12 @@ class Igdb:
             print(f"HTTP request failed: {e}")
 
 
-client_id, secret_id, access_id = Igdb.get_config()
-search1 = Igdb("Halo")
-search1.client_id = client_id
-search1.secret_id = secret_id
-search1.access_id = access_id
-search1.get_config()
-search1.search_game()
-for game in search1.games:
-    game.show_results()
+#client_id, secret_id, access_id = Igdb.get_config()
+#search1 = Igdb("Halo")
+#search1.client_id = client_id
+#search1.secret_id = secret_id
+#search1.access_id = access_id
+#search1.get_config()
+#search1.search_game()
+#for game in search1.games:
+#    game.show_results()
