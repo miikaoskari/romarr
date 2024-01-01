@@ -44,6 +44,13 @@ const Navbar = () => {
                         Settings
                     </Link>
                 </div>
+                <div>
+                    <input
+                        className={"rounded-2xl px-2 py-1 hover:rounded-2xl bg-gray-50"}
+                        type="text"
+                        placeholder="Search"
+                    />
+                </div>
                 <div className="origin-right mx-2 py-1 px-2 hover:rounded-2xl hover:bg-gray-50">
                     <Link to="/login">
                         <FontAwesomeIcon icon={faUser} size="1x" className={"px-2"}/>
