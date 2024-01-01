@@ -1,19 +1,24 @@
 import React, {useState} from 'react';
+import {Menu} from '@headlessui/react'
 import './navbar.css'
 import logo from '../../assets/png/romarr-high-resolution-logo-black-transparent2.0.png'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
+import {Search} from "../index";
 
 const Navbar = () => {
     const [query, setQuery] = useState("");
     const [timerId, setTimerId] = useState(null);
+    const [searchResults, setSearchResults] = useState([]);
 
 
     const fetchGames = async () => {
-        const response = await fetch (`http://localhost:8000/search/${query}`)
+        const response = await fetch(`http://localhost:8000/search/${query}`)
         const data = await response.json()
         console.log(data)
+        setSearchResults(data)
+        console.log(searchResults)
     }
     const handleInputChange = (event) => {
         clearTimeout(timerId);
@@ -51,6 +56,13 @@ const Navbar = () => {
                         placeholder="Search"
                         onChange={handleInputChange}
                     />
+                    {searchResults.length > 0 && (
+                        <div className="dropdown-menu">
+                            {searchResults.map((result, index) => (
+                                <Search key={index} data={result} />
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div className="origin-right mx-2 py-1 px-2 hover:rounded-2xl hover:bg-gray-50">
                     <Link to="/login">

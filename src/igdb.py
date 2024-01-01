@@ -33,6 +33,14 @@ class Game:
         self.checksum = None
         self.collections = None
 
+    def get_small_description(self):
+        return {
+            "name": self.name,
+            "summary": self.summary,
+            "release_dates": self.release_dates,
+            "cover_url": self.cover_url,
+        }
+
     def show_results(self):
         # print all the attributes of all the objects
         for attribute, value in self.__dict__.items():
@@ -69,7 +77,7 @@ class Igdb:
 
     def search_game(self):
         conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = f"fields *; search \"{self.name}\"; limit 10;"
+        payload = f"fields *; search \"{self.name}\"; limit 1;"
         headers = {
             'Client-ID': self.client_id,
             'Authorization': 'Bearer ' + self.access_id,
@@ -133,12 +141,7 @@ class Igdb:
             print(f"HTTP request failed: {e}")
 
 
-#client_id, secret_id, access_id = Igdb.get_config()
-#search1 = Igdb("Halo")
-#search1.client_id = client_id
-#search1.secret_id = secret_id
-#search1.access_id = access_id
-#search1.get_config()
-#search1.search_game()
-#for game in search1.games:
-#    game.show_results()
+igdb_query = Igdb("halo")
+igdb_query.get_config()
+igdb_query.search_game()
+print(igdb_query.games)

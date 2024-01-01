@@ -34,8 +34,7 @@ async def search(query):
     igdb_query = Igdb(query)
     igdb_query.get_config()
     igdb_query.search_game()
-    return {"query": igdb_query.games}
-
+    return {"query": [game.get_small_description() for game in igdb_query.games]}
 
 @app.get("/games")
 async def get_games():
