@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './navbar.css'
 import logo from '../../assets/png/romarr-high-resolution-logo-black-transparent2.0.png'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -6,21 +6,21 @@ import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 
 const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false)
+    const [query, setQuery] = useState("");
+    const [timerId, setTimerId] = useState(null);
 
-    const handleScroll = () => {
-        if (window.scrollY > 30) {
-            setIsScrolled(true)
-        } else {
-            setIsScrolled(false)
-        }
+
+    const fetchGames = async () => {
+        const response = await fetch (`http://localhost:8000/search/${query}`)
+        const data = await response.json()
+        console.log(data)
     }
-
-    useEffect(() => {
-            window.addEventListener("scroll", handleScroll);
-            return () => window.removeEventListener("scroll", handleScroll)
-        }
-        , []);
+    const handleInputChange = (event) => {
+        clearTimeout(timerId);
+        setQuery(event.target.value);
+        const timer = setTimeout(fetchGames, 500);
+        setTimerId(timer);
+    }
 
     return (
         <nav className="py-1">
@@ -49,6 +49,7 @@ const Navbar = () => {
                         className={"rounded-2xl px-2 py-1 hover:rounded-2xl bg-gray-50"}
                         type="text"
                         placeholder="Search"
+                        onChange={handleInputChange}
                     />
                 </div>
                 <div className="origin-right mx-2 py-1 px-2 hover:rounded-2xl hover:bg-gray-50">
