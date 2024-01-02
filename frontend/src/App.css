@@ -8,6 +8,7 @@
 /* Disabled the background completely for the time being for easier modification */
 body {
     /*background-image: url('./assets/jpg/background.jpg');*/
+    background-color: #1F2937; /* This is the hex color code for bg-gray-800 in Tailwind CSS */
     background-repeat: no-repeat;
     background-size: 150%;
     background-attachment: fixed;
