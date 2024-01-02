@@ -7,8 +7,7 @@
 
 /* Disabled the background completely for the time being for easier modification */
 body {
-
-    background-image: url('./assets/jpg/background.jpg');
+    /*background-image: url('./assets/jpg/background.jpg');*/
     background-repeat: no-repeat;
     background-size: 150%;
     background-attachment: fixed;

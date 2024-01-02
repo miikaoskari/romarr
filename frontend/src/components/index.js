@@ -3,3 +3,7 @@ export { default as Table } from './table/Table';
 export { default as Grid } from './grid/Grid';
 export { default as Indexers } from './indexers/Indexers';
 export { default as Search } from './search/Search';
+export { default as Sidebar } from './sidebar/Sidebar';
+export { default as Layout } from './layout/Layout';
+export { default as MainContent } from './maincontent/MainContent';
+export { default as RoundedBox } from './roundedbox/RoundedBox';
