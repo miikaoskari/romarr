@@ -1,14 +1,10 @@
 import React from 'react';
 
-const Search = (props) => {
-    const { name, summary, release_dates, cover_url } = props.data;
-    console.log(props.data);
+const Search = () => {
     return (
-
-        <div>
-            <img className={""} src={cover_url} alt={name}/>
-            <h1 className={"text-2xl"}>{name}</h1>
-            <p>{summary}</p>
+        <div className={"flex justify-end order-last"}>
+            <input className={"my-2 mx-2 border-2 rounded-2xl bg-gray-200 py-1 indent-2"}
+                   placeholder={"Search"}></input>
         </div>
     );
 };

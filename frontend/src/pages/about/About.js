@@ -1,7 +1,8 @@
+import {Card, Grid} from "../../components";
 const About = () => {
     return (
         <div>
-            <h1>About</h1>
+            <Card></Card>
         </div>
     );
 };

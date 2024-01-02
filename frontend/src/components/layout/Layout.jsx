@@ -2,6 +2,7 @@ import React from 'react';
 import {RoundedBox, Sidebar} from "../index";
 import {About, Activity, Dashboard, Games, Settings, Login} from "../../pages";
 import {useLocation} from "react-router-dom";
+import {Search} from "../index";
 
 const Layout = () => {
     const location = useLocation();
@@ -34,6 +35,7 @@ const Layout = () => {
         <div className="flex">
             <Sidebar/>
             <RoundedBox>
+                <Search/>
                 {MainContent}
             </RoundedBox>
         </div>
