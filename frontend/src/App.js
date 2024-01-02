@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import {Article, Brand, Cta, Feature, Navbar, Sidebar} from "./components";
-import {Footer, Header, Features, Blog} from "./containers";
+import {Navbar} from "./components";
+import {Footer, Header} from "./containers";
 import {About, Activity, Dashboard, Games, Settings, Login} from "./pages";
 import {Routes, Route, useLocation} from 'react-router-dom';
 
