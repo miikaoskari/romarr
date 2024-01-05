@@ -24,3 +24,6 @@ yarn-error.log*
 
 # remove private api key
 config.json
+
+# remove samples
+frontend/src/assets/samples/
