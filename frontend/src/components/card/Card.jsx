@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Card = () => {
+const Card = ({children}) => {
     return (
-        <div className={"max-w-sm rounded-2xl overflow-hidden shadow-lg"}>
-            <h1>text</h1>
+        <div className="rounded-lg shadow-md p-6 bg-white mx-2 my-2 max-w-md max-h-md auto">
+            {children}
         </div>
     );
 };
