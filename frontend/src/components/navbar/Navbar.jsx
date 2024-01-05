@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Menu} from '@headlessui/react'
 import './navbar.css'
 import logo from '../../assets/png/romarr-high-resolution-logo-black-transparent2.0.png'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'

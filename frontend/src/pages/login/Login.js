@@ -1,4 +1,5 @@
 import logo from '../../assets/png/romarr-high-resolution-logo-black-transparent2.0.png';
+import React from 'react';
 const Login = () => {
     return (
         <div className="flex flex-col h-screen justify-center items-center">

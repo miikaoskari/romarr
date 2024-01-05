@@ -1,5 +1,5 @@
 import React from 'react';
-
+import propTypes from 'prop-types';
 const Header = ({children}) => {
     return (
         <div className={"flex items-center"}>
@@ -11,5 +11,9 @@ const Header = ({children}) => {
         </div>
     );
 };
+
+Header.propTypes = {
+    children: propTypes.node,
+}
 
 export default Header;

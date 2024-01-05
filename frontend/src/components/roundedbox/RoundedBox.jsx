@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const RoundedBox = ({children}) => {
     return (
@@ -7,5 +8,9 @@ const RoundedBox = ({children}) => {
         </div>
     );
 };
+
+RoundedBox.propTypes = {
+    children: PropTypes.node,
+}
 
 export default RoundedBox;

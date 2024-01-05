@@ -3,8 +3,6 @@ import {Link} from "react-router-dom";
 import logo from '../../assets/png/logo_no_text_white.png'
 import {faChartLine, faGamepad, faGear, faHome, faUser} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {SidebarItem} from "../index";
-
 
 const Sidebar = () => {
     const [selectedLink, setSelectedLink] = React.useState("/");
