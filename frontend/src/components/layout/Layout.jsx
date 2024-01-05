@@ -1,8 +1,9 @@
 import React from 'react';
-import {RoundedBox, Sidebar} from "../index";
+import {RoundedBox, Sidebar, Header} from "../index";
 import {About, Activity, Dashboard, Games, Settings, Login} from "../../pages";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {Search} from "../index";
+import {Breadcrumbs} from "@mui/material";
 
 const Layout = () => {
     const location = useLocation();
@@ -31,11 +32,35 @@ const Layout = () => {
             MainContent = <Dashboard/>;
     }
 
+    // Split the current path
+    const pathnames = location.pathname.split('/').filter((x) => x);
+
+    // Helper function to capitalize the first letter of each word
+    const capitalize = (s) => {
+        if (typeof s !== 'string') return ''
+        return s.charAt(0).toUpperCase() + s.slice(1)
+    }
+
     return (
         <div className="flex">
             <Sidebar/>
             <RoundedBox>
-                <Search/>
+                <Header>
+                    <Breadcrumbs aria-label={"breadcrumb"} className={"px-6"}>
+                        <Link to="/">Home</Link>
+                        {pathnames.map((value, index) => {
+                            const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+
+                            return (
+                                <Link key={to} to={to}>
+                                    {capitalize(value)}
+                                </Link>
+                            );
+                        })}
+                    </Breadcrumbs>
+                    <Search/>
+                </Header>
+
                 {MainContent}
             </RoundedBox>
         </div>

@@ -9,3 +9,4 @@ export { default as MainContent } from './maincontent/MainContent';
 export { default as RoundedBox } from './roundedbox/RoundedBox';
 export { default as SidebarItem } from './sidebaritem/SidebarItem';
 export { default as Card } from './card/Card';
+export { default as Header } from './header/Header';
