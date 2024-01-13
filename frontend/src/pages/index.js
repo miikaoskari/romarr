@@ -4,3 +4,4 @@ export { default as Dashboard } from './dashboard/Dashboard';
 export { default as Settings } from './settings/Settings';
 export { default as Games } from './games/Games';
 export { default as Login } from './login/Login';
+export { default as Search } from './search/Search';
