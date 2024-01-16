@@ -2,7 +2,7 @@ import Grid from '../../components/grid/Grid';
 import React, { useEffect } from 'react';
 import { Card } from '../../components';
 const Games = () => {
-  const [image, setImage] = React.useState([]);
+  const [data, setData] = React.useState([]);
 
   useEffect(() => {
     fetch('http://localhost:3000/api/v1/games')
@@ -12,7 +12,7 @@ const Games = () => {
         }
         return response.json();
       })
-      .then((data) => setImage(data))
+      .then((data) => setData(data))
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -23,12 +23,19 @@ const Games = () => {
       <div className={'flex flex-col py-3'}>
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Games</h1>
       </div>
+      {data.length > 0 ? (
+        <Grid>
+          {data.map((image) => (
+            <Card key={image.id} image={image} />
+          ))}
+        </Grid>
+      ) : (
+        <div className={"flex justify-center items-center h-full"}>
+          <p className={"text-gray-700"}>No games available</p>
+        </div>
+      )
+      }
 
-      <Grid>
-        {image.map((image) => (
-          <Card key={image.id} image={image} />
-        ))}
-      </Grid>
     </div>
   );
 };
