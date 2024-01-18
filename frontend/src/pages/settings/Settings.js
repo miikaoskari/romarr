@@ -46,12 +46,10 @@ const Settings = () => {
             ))}
           </Grid>
         ) : (
-          <div className={'flex justify-center items-center h-full'}>
-            <p className={'text-gray-700 my-4'}>No indexers configured</p>
+          <div className={'flex h-full items-center justify-center'}>
+            <p className={'my-4 text-gray-700'}>No indexers configured</p>
           </div>
-        )
-        }
-
+        )}
       </div>
       <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Download clients</h1>
       <div className={''}>
@@ -62,12 +60,10 @@ const Settings = () => {
             ))}
           </Grid>
         ) : (
-          <div className={'flex justify-center items-center h-full'}>
-            <p className={'text-gray-700 my-4'}>No indexers configured</p>
+          <div className={'flex h-full items-center justify-center'}>
+            <p className={'my-4 text-gray-700'}>No indexers configured</p>
           </div>
-        )
-        }
-
+        )}
       </div>
     </div>
   );
