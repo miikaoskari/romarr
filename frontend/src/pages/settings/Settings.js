@@ -2,23 +2,72 @@ import React from 'react';
 import { Card, Grid } from '../../components';
 
 const Settings = () => {
+  const [indexers, setIndexers] = React.useState([]);
+  const [clients, setClients] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('http://localhost:3000/api/v1/indexers')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((indexers) => setIndexers(indexers))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+
+  React.useEffect(() => {
+    fetch('http://localhost:3000/api/v1/clients')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((clients) => setClients(clients))
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+
   return (
     <div>
       <div className="flex flex-col py-3">
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Indexers</h1>
       </div>
       <div className={''}>
-        <Grid>
-          <Card>Newznab</Card>
-          <Card>Torznab</Card>
-        </Grid>
+        {indexers.length > 0 ? (
+          <Grid>
+            {indexers.map((indexer) => (
+              <Card key={indexer.id} indexer={indexer} />
+            ))}
+          </Grid>
+        ) : (
+          <div className={'flex justify-center items-center h-full'}>
+            <p className={'text-gray-700 my-4'}>No indexers configured</p>
+          </div>
+        )
+        }
+
       </div>
       <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Download clients</h1>
       <div className={''}>
-        <Grid>
-          <Card>SABnzbd</Card>
-          <Card>qBittorrent</Card>
-        </Grid>
+        {clients.length > 0 ? (
+          <Grid>
+            {clients.map((client) => (
+              <Card key={client.id} client={client} />
+            ))}
+          </Grid>
+        ) : (
+          <div className={'flex justify-center items-center h-full'}>
+            <p className={'text-gray-700 my-4'}>No indexers configured</p>
+          </div>
+        )
+        }
+
       </div>
     </div>
   );
