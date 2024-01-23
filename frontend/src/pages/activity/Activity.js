@@ -24,22 +24,41 @@ const Activity = () => {
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Queue</h1>
       </div>
       {data.length > 0 ? (
-        <Table></Table>
+        <div className={'mx-6'}>
+          <Table></Table>
+        </div>
       ) : (
-        <div className={'flex justify-center items-center h-full'}>
+        <div className={'flex h-full items-center justify-center'}>
           <p className={'text-gray-700'}>Queue is empty</p>
         </div>
-      )
-      }
+      )}
 
       <div className={'flex flex-col py-3'}>
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>History</h1>
       </div>
-      <Table></Table>
+      {data.length > 0 ? (
+        <div className={'mx-6'}>
+          <Table></Table>
+        </div>
+      ) : (
+        <div className={'flex h-full items-center justify-center'}>
+          <p className={'text-gray-700'}>History is empty</p>
+        </div>
+      )}
+
       <div className={'flex flex-col py-3'}>
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Blocklist</h1>
       </div>
-      <Table></Table>
+      {data.length > 0 ? (
+        <div className={'mx-6'}>
+          <Table></Table>
+        </div>
+      ) : (
+        <div className={'flex h-full items-center justify-center'}>
+          <p className={'text-gray-700'}>Blocklist is empty</p>
+        </div>
+      )}
+
     </div>
   );
 };
