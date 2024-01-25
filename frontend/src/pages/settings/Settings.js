@@ -65,7 +65,9 @@ const Settings = () => {
       <div className={'px-6 py-4'}>
         <Button title={'Add'} onClick={openModal}></Button>
       </div>
-      <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Download clients</h1>
+      <div className="flex flex-col py-3">
+        <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Download clients</h1>
+      </div>
       <div className={''}>
         {clients.length > 0 ? (
           <Grid>
