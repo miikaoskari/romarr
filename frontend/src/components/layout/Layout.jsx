@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, RoundedBox, Search, Sidebar } from '../index';
+import { Header, RoundedBox, Search, Navbar } from '../index';
 import { About, Activity, Dashboard, Games, Login, Settings } from '../../pages';
 import { Link, useLocation } from 'react-router-dom';
 import { Breadcrumbs } from '@mui/material';
@@ -41,8 +41,8 @@ const Layout = () => {
   };
 
   return (
-    <div className="flex">
-      <Sidebar />
+    <div className="">
+      <Navbar />
       <RoundedBox>
         <Header>
           <Breadcrumbs aria-label={'breadcrumb'} className={'px-6'}>
