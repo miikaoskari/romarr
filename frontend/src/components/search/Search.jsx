@@ -9,9 +9,14 @@ const Search = () => {
   };
 
   return (
-    <div className={'order-last flex justify-end'}>
-      <input className={'mx-2 my-2 rounded-2xl border-2 bg-gray-200 py-1 indent-2'} placeholder={'Search'} onKeyDown={handleKeyPress}></input>
-    </div>
+<div className="order-last flex justify-end">
+    <input
+        className="mx-2 my-2 rounded-2xl bg-gray-800 py-1 px-4 w-24  indent-2 outline-none hover:shadow-lg transition-all text-white focus:w-60"
+        placeholder="Search"
+        onKeyDown={handleKeyPress}
+    ></input>
+</div>
+
   );
 };
 

@@ -5,3 +5,4 @@ export { default as Settings } from './settings/Settings';
 export { default as Games } from './games/Games';
 export { default as Login } from './login/Login';
 export { default as Search } from './search/Search';
+export { default as Home } from './Home.js/Home';

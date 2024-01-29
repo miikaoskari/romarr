@@ -11,3 +11,4 @@ export { default as SidebarItem } from './sidebaritem/SidebarItem';
 export { default as Card } from './card/Card';
 export { default as Header } from './header/Header';
 export { default as Button } from './button/Button';
+export { default as Announcement } from './announcement/Announcement';
