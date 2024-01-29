@@ -45,7 +45,7 @@ const Settings = () => {
   });
 
   return (
-    <div>
+    <div className='bg-gray-900 rounded-3xl '>
       <div className="flex flex-col py-3">
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Indexers</h1>
       </div>
@@ -58,7 +58,7 @@ const Settings = () => {
           </Grid>
         ) : (
           <div className={'flex h-full items-center justify-center'}>
-            <p className={'my-4 text-gray-700'}>No indexers configured</p>
+            <p className={'my-4 text-gray-200'}>No indexers configured</p>
           </div>
         )}
       </div>
@@ -77,7 +77,7 @@ const Settings = () => {
           </Grid>
         ) : (
           <div className={'flex h-full items-center justify-center'}>
-            <p className={'my-4 text-gray-700'}>No indexers configured</p>
+            <p className={'my-4 text-gray-200'}>No indexers configured</p>
           </div>
         )}
       </div>

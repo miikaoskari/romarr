@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header, RoundedBox, Search, Navbar } from '../index';
-import { About, Activity, Dashboard, Games, Login, Settings } from '../../pages';
+import { Header, RoundedBox, Search, Navbar, Announcement } from '../index';
+import { About, Activity, Dashboard, Games, Login, Settings, Home } from '../../pages';
 import { Link, useLocation } from 'react-router-dom';
 import { Breadcrumbs } from '@mui/material';
 
@@ -10,7 +10,7 @@ const Layout = () => {
 
   switch (location.pathname) {
     case '/':
-      MainContent = <Dashboard />;
+      MainContent = <Home />;
       break;
     case '/about':
       MainContent = <About />;
@@ -27,6 +27,9 @@ const Layout = () => {
     case '/login':
       MainContent = <Login />;
       break;
+      case '/home':
+        MainContent = <Home />;
+        break;
     default:
       MainContent = <Dashboard />;
   }
@@ -42,11 +45,11 @@ const Layout = () => {
 
   return (
     <div className="">
+      <Announcement/>
       <Navbar />
       <RoundedBox>
         <Header>
-          <Breadcrumbs aria-label={'breadcrumb'} className={'px-6'}>
-            <Link to="/">Home</Link>
+        <Breadcrumbs aria-label={'breadcrumb'} className="px-4 bg-gray-900 w-max rounded-3xl py-2 ">            <Link to="/">Home</Link>
             {pathnames.map((value, index) => {
               const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 

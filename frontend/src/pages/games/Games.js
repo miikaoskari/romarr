@@ -19,7 +19,7 @@ const Games = () => {
   }, []);
 
   return (
-    <div>
+    <div className='bg-gray-900 rounded-3xl '>
       <div className={'flex flex-col py-3'}>
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Games</h1>
       </div>
