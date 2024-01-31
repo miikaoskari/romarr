@@ -11,7 +11,8 @@ class Newznab:
         self.query = None
         self.output_format = None
         self.doc = None
-        self.categories = None
+        self.categories = []
+        self.items = []
 
     def caps(self):
         # Returns a list of caps that this newznab instance supports
@@ -34,10 +35,19 @@ class Newznab:
         }
 
         self.response = requests.request("GET", self.url + search, headers=headers, data=payload)
+        self.doc = parseString(self.response.text)
 
     def details(self):
         # The response contains the generic RSS part + full extra information + full type/category specific information.
-        pass
+        details = "?t=details&id=" + self.id
+
+        payload = {}
+        headers = {
+        }
+
+        self.response = requests.request("GET", self.url + details + "&apikey=" + self.api_key, headers=headers,
+                                         data=payload)
+        self.doc = parseString(self.response.text)
 
     def get_nfo(self):
         # The GETNFO function returns a nfo file for a particular Usenet (NZB) item.
@@ -48,6 +58,7 @@ class Newznab:
         }
 
         self.response = requests.request("GET", self.url + nfo, headers=headers, data=payload)
+        self.doc = parseString(self.response.text)
 
     def get(self):
         # The GET function returns a nzb for a guid.
@@ -58,6 +69,7 @@ class Newznab:
         }
 
         self.response = requests.request("GET", self.url + get, headers=headers, data=payload)
+        self.doc = parseString(self.response.text)
 
     def parse_results(self):
         # Parses the results of the response
@@ -91,12 +103,13 @@ class Newznab:
                 self.parse_details()
 
     def parse_caps(self):
-        # Get categories after the first child tag
-
+        # Parses the caps
         categories = self.doc.getElementsByTagName("category")
         for category in categories:
-            print(category.getAttribute("id"))
-            print(category.getAttribute("name"))
+            self.categories.append({
+                "id": category.getAttribute("id"),
+                "name": category.getAttribute("name")
+            })
         pass
 
     def parse_nfo(self):
@@ -109,6 +122,13 @@ class Newznab:
 
     def parse_details(self):
         # Parses the details
+        pass
+
+    def parse_search(self):
+        # Parses the search
+        items = self.doc.getElementsByTagName("item")
+        for item in items:
+            print(item)
         pass
 
     def test_conn(self):
