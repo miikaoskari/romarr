@@ -10,6 +10,8 @@ class Newznab:
         self.id = None
         self.query = None
         self.output_format = None
+        self.doc = None
+        self.categories = None
 
     def caps(self):
         # Returns a list of caps that this newznab instance supports
@@ -20,6 +22,7 @@ class Newznab:
         }
 
         self.response = requests.request("GET", self.url + caps, headers=headers, data=payload)
+        self.doc = parseString(self.response.text)
 
     def search(self):
         # The SEARCH function searches the index for items matching the search criteria. On successful search the
@@ -65,10 +68,10 @@ class Newznab:
             print("Error: " + self.response)
             return
 
-        doc = parse(self.response)
+        self.doc = parse(self.response)
 
         # Get the first child tag
-        first_child_tag = doc.firstChild.tagName
+        first_child_tag = self.doc.firstChild.tagName
 
         match first_child_tag:
             case "error":
@@ -87,10 +90,13 @@ class Newznab:
             case "details":
                 self.parse_details()
 
-
-
     def parse_caps(self):
-        # Parses the caps
+        # Get categories after the first child tag
+
+        categories = self.doc.getElementsByTagName("category")
+        for category in categories:
+            print(category.getAttribute("id"))
+            print(category.getAttribute("name"))
         pass
 
     def parse_nfo(self):
