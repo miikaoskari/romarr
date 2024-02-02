@@ -13,6 +13,7 @@ class Newznab:
         self.doc = None
         self.categories = []
         self.items = []
+        self.nzb = None
 
     def caps(self):
         # Returns a list of caps that this newznab instance supports
@@ -39,19 +40,19 @@ class Newznab:
 
     def details(self):
         # The response contains the generic RSS part + full extra information + full type/category specific information.
-        details = "?t=details&id=" + self.id
+        details = "?t=details&id=" + self.id + "&apikey=" + self.api_key
 
         payload = {}
         headers = {
         }
 
-        self.response = requests.request("GET", self.url + details + "&apikey=" + self.api_key, headers=headers,
+        self.response = requests.request("GET", self.url + details, headers=headers,
                                          data=payload)
         self.doc = parseString(self.response.text)
 
     def get_nfo(self):
         # The GETNFO function returns a nfo file for a particular Usenet (NZB) item.
-        nfo = "?t=info&id=" + self.id
+        nfo = "?t=info&id=" + self.id + "&apikey=" + self.api_key
 
         payload = {}
         headers = {
@@ -62,14 +63,14 @@ class Newznab:
 
     def get(self):
         # The GET function returns a nzb for a guid.
-        get = "?t=get&id=" + self.id
+        get = "?t=get&id=" + self.id + "&apikey=" + self.api_key
 
         payload = {}
         headers = {
         }
 
         self.response = requests.request("GET", self.url + get, headers=headers, data=payload)
-        self.doc = parseString(self.response.text)
+        self.nzb = parseString(self.response.text)
 
     def parse_caps(self):
         # Parses the caps
@@ -79,10 +80,6 @@ class Newznab:
                 "id": category.getAttribute("id"),
                 "name": category.getAttribute("name")
             })
-        pass
-
-    def parse_nfo(self):
-        # Parses the nfo
         pass
 
     def parse_get(self):
