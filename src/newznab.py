@@ -14,6 +14,8 @@ class Newznab:
         self.categories = []
         self.items = []
         self.nzb = None
+        self.nfo = None
+        self.details = []
 
     def caps(self):
         # Returns a list of caps that this newznab instance supports
@@ -59,7 +61,7 @@ class Newznab:
         }
 
         self.response = requests.request("GET", self.url + nfo, headers=headers, data=payload)
-        self.doc = parseString(self.response.text)
+        self.nfo = self.response.text
 
     def get(self):
         # The GET function returns a nzb for a guid.
@@ -72,6 +74,13 @@ class Newznab:
         self.response = requests.request("GET", self.url + get, headers=headers, data=payload)
         self.nzb = parseString(self.response.text)
 
+    def parse_nfo(self):
+        # Parses the nfo
+        if self.nfo is not None:
+            return self.nfo
+        else:
+            return None
+
     def parse_caps(self):
         # Parses the caps
         categories = self.doc.getElementsByTagName("category")
@@ -80,15 +89,20 @@ class Newznab:
                 "id": category.getAttribute("id"),
                 "name": category.getAttribute("name")
             })
-        pass
-
-    def parse_get(self):
-        # Parses the get
-        pass
 
     def parse_details(self):
         # Parses the details
-        pass
+        items = self.doc.getElementsByTagName("item")
+        if items:
+            item = items[0]
+            item_data = {}
+            for child in item.childNodes:
+                if child.nodeType == child.ELEMENT_NODE:
+                    if child.firstChild is not None:
+                        item_data[child.tagName] = child.firstChild.nodeValue
+                    else:
+                        item_data[child.tagName] = None
+            self.details.append(item_data)
 
     def parse_search(self):
         # Parses the search
@@ -102,7 +116,3 @@ class Newznab:
                     else:
                         item_data[child.tagName] = None
             self.items.append(item_data)
-
-    def test_conn(self):
-        # Tests the connection to the newznab instance
-        pass
