@@ -28,7 +28,7 @@ class Newznab:
     def search(self):
         # The SEARCH function searches the index for items matching the search criteria. On successful search the
         # response contains a list of found items.
-        search = "?t=search&q=" + self.query
+        search = "?t=search&q=" + self.query + "&apikey=" + self.api_key
 
         payload = {}
         headers = {
@@ -71,37 +71,6 @@ class Newznab:
         self.response = requests.request("GET", self.url + get, headers=headers, data=payload)
         self.doc = parseString(self.response.text)
 
-    def parse_results(self):
-        # Parses the results of the response
-        list_of_errors = ['100', '101', '102', '103', '104', '105', '106', '107', '200', '201', '202', '203', '300',
-                          '900', '910']
-
-        if str(self.response.status_code) in list_of_errors:
-            print("Error: " + self.response)
-            return
-
-        self.doc = parse(self.response)
-
-        # Get the first child tag
-        first_child_tag = self.doc.firstChild.tagName
-
-        match first_child_tag:
-            case "error":
-                print("Error: " + self.response)
-                return
-
-            case "caps":
-                self.parse_caps()
-
-            case "nfo":
-                self.parse_nfo()
-
-            case "get":
-                self.parse_get()
-
-            case "details":
-                self.parse_details()
-
     def parse_caps(self):
         # Parses the caps
         categories = self.doc.getElementsByTagName("category")
@@ -128,8 +97,14 @@ class Newznab:
         # Parses the search
         items = self.doc.getElementsByTagName("item")
         for item in items:
-            print(item)
-        pass
+            item_data = {}
+            for child in item.childNodes:
+                if child.nodeType == child.ELEMENT_NODE:
+                    if child.firstChild is not None:
+                        item_data[child.tagName] = child.firstChild.nodeValue
+                    else:
+                        item_data[child.tagName] = None
+            self.items.append(item_data)
 
     def test_conn(self):
         # Tests the connection to the newznab instance
