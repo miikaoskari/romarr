@@ -9,7 +9,6 @@ class Newznab:
         self.response = None
         self.id = None
         self.query = None
-        self.output_format = None
         self.doc = None
         self.categories = []
         self.items = []
