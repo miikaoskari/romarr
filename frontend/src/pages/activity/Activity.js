@@ -29,7 +29,7 @@ const Activity = () => {
         </div>
       ) : (
         <div className={'flex h-full items-center justify-center'}>
-          <p className={'text-white-700'}>Queue is empty</p>
+          <p className={'text-gray-700'}>Queue is empty</p>
         </div>
       )}
 
@@ -42,7 +42,7 @@ const Activity = () => {
         </div>
       ) : (
         <div className={'flex h-full items-center justify-center'}>
-          <p className={'text-white-700'}>History is empty</p>
+          <p className={'text-gray-700'}>History is empty</p>
         </div>
       )}
 
@@ -55,7 +55,7 @@ const Activity = () => {
         </div>
       ) : (
         <div className={'flex h-full items-center justify-center'}>
-          <p className={'text-white-700'}>Blocklist is empty</p>
+          <p className={'text-gray-700'}>Blocklist is empty</p>
         </div>
       )}
     </div>
