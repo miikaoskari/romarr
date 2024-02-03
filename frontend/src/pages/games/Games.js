@@ -19,7 +19,7 @@ const Games = () => {
   }, []);
 
   return (
-    <div className='bg-gray-900 rounded-3xl '>
+    <div className="rounded-3xl bg-gray-900 ">
       <div className={'flex flex-col py-3'}>
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Games</h1>
       </div>
@@ -30,12 +30,10 @@ const Games = () => {
           ))}
         </Grid>
       ) : (
-        <div className={"flex justify-center items-center h-full"}>
-          <p className={"text-gray-700"}>No games available</p>
+        <div className={'flex h-full items-center justify-center'}>
+          <p className={'text-gray-700'}>No games available</p>
         </div>
-      )
-      }
-
+      )}
     </div>
   );
 };

@@ -25,47 +25,54 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="py-1 mt-2 bg-transparent">
-    <div className="container mx-auto flex items-center justify-between py-2 px-8 rounded-3xl text-primary-light bg-gray-900 border-x-white ">
+    <nav className="mt-2 bg-transparent py-1">
+      <div className="container mx-auto flex items-center justify-between rounded-3xl border-x-white bg-gray-900 px-8 py-2 text-primary-light ">
         <div className="flex items-center">
-            <Link to="/">
-                <img className="w-32 h-auto object-contain p-2 rounded-3xl shadow-sm" src={logo} alt="logo" />
-            </Link>
+          <Link to="/">
+            <img className="h-auto w-32 rounded-3xl object-contain p-2 shadow-sm" src={logo} alt="logo" />
+          </Link>
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center space-x-4 font-semibold text-gray-300">
-            <Link to="/about" className="px-3 py-2 rounded-2xl hover:bg-gray-800 transition-all">About</Link>
-            <Link to="/activity" className="px-3 py-2 rounded-2xl hover:bg-gray-800 transition-all">Activity</Link>
-            <Link to="/games" className="px-3 py-2 rounded-2xl hover:bg-gray-800 transition-all">Games</Link>
-            <Link to="/settings" className="px-3 py-2 rounded-2xl hover:bg-gray-800 transition-all">Settings</Link>
+        <div className="hidden items-center space-x-4 font-semibold text-gray-300 md:flex">
+          <Link to="/about" className="rounded-2xl px-3 py-2 transition-all hover:bg-gray-800">
+            About
+          </Link>
+          <Link to="/activity" className="rounded-2xl px-3 py-2 transition-all hover:bg-gray-800">
+            Activity
+          </Link>
+          <Link to="/games" className="rounded-2xl px-3 py-2 transition-all hover:bg-gray-800">
+            Games
+          </Link>
+          <Link to="/settings" className="rounded-2xl px-3 py-2 transition-all hover:bg-gray-800">
+            Settings
+          </Link>
         </div>
 
-        <div className="flex right-0 relative">
-            <input
-                className="rounded-2xl w-96 bg-gray-800 px-4 py-2 pl-5 outline-none hover:scale-105 hover:shadow-lg transition-all text-white"
-                type="text"
-                placeholder="Search"
-                onChange={handleInputChange}
-            />
-            {searchResults.length > 0 && (
-                <div className="dropdown-menu absolute bg-gray-900 shadow-md mt-1 rounded-xl z-10 text-white">
-                    {searchResults.map((result, index) => (
-                        <Search key={index} data={result} />
-                    ))}
-                </div>
-            )}
+        <div className="relative right-0 flex">
+          <input
+            className="w-96 rounded-2xl bg-gray-800 px-4 py-2 pl-5 text-white outline-none transition-all hover:scale-105 hover:shadow-lg"
+            type="text"
+            placeholder="Search"
+            onChange={handleInputChange}
+          />
+          {searchResults.length > 0 && (
+            <div className="dropdown-menu absolute z-10 mt-1 rounded-xl bg-gray-900 text-white shadow-md">
+              {searchResults.map((result, index) => (
+                <Search key={index} data={result} />
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="flex items-center space-x-2 hover:bg-gray-800 rounded-2xl px-3 py-2 transition-all text-gray-300">
-            <Link to="/login" className="flex items-center">
-                <FontAwesomeIcon icon={faUser} size="1x" />
-                <span className="ml-2">User</span>
-            </Link>
+        <div className="flex items-center space-x-2 rounded-2xl px-3 py-2 text-gray-300 transition-all hover:bg-gray-800">
+          <Link to="/login" className="flex items-center">
+            <FontAwesomeIcon icon={faUser} size="1x" />
+            <span className="ml-2">User</span>
+          </Link>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
   );
-  
 };
 export default Navbar;

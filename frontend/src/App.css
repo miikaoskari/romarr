@@ -15,7 +15,6 @@ body {
   min-height: 100vh;
   position: relative;
   color: white;
-  
 }
 
 a {
@@ -43,9 +42,9 @@ a {
 .carousel-container {
   width: 100%;
   overflow: hidden;
-  margin-bottom: 2rem; 
-  border-radius: 0.75rem; 
-  height: 16rem; 
+  margin-bottom: 2rem;
+  border-radius: 0.75rem;
+  height: 16rem;
   box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -72,18 +71,16 @@ a {
   margin-top: -1rem;
 }
 
-
 .carousel-image {
   width: 25%;
   flex-shrink: 0;
   object-fit: cover;
-  height: 100%; 
-  filter: saturate(180%) ;
+  height: 100%;
+  filter: saturate(180%);
   opacity: 0.9;
   pointer-events: none;
   transition: all 0.3s ease-in-out;
 }
-
 
 @media screen and (max-width: 1670px) {
   .section__padding {
@@ -103,7 +100,6 @@ a {
       transform: translateX(calc(-1 * 50% * 4));
     }
   }
-  
 }
 
 @media screen and (max-width: 1125px) {
@@ -127,7 +123,7 @@ a {
 }
 
 @media screen and (max-width: 890px) {
-.carousel-container {
-  display: none;
-}
+  .carousel-container {
+    display: none;
+  }
 }

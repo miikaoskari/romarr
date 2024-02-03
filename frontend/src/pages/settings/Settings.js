@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Card, Grid, Modal } from '../../components';
 
-
 const Settings = () => {
-  const [isOpen, setIsOpen] = useState({ type: "", open: false });
+  const [isOpen, setIsOpen] = useState({ type: '', open: false });
 
   function closeModal() {
-    setIsOpen({ type: "", open: false });
+    setIsOpen({ type: '', open: false });
   }
 
   function openModal(type) {
-    setIsOpen({type: type, open: true});
+    setIsOpen({ type: type, open: true });
   }
 
   const [indexers, setIndexers] = React.useState([]);
@@ -45,7 +44,7 @@ const Settings = () => {
   });
 
   return (
-    <div className='bg-gray-900 rounded-3xl '>
+    <div className="rounded-3xl bg-gray-900 ">
       <div className="flex flex-col py-3">
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Indexers</h1>
       </div>
@@ -65,7 +64,7 @@ const Settings = () => {
       <div className={'px-6 py-4'}>
         <Button title={'Add'} onClick={() => openModal('indexer')}></Button>
       </div>
-      {isOpen.type === 'indexer' && <Modal isOpen={isOpen.open} closeModal={closeModal} title={"Add indexer"}></Modal>}
+      {isOpen.type === 'indexer' && <Modal isOpen={isOpen.open} closeModal={closeModal} title={'Add indexer'}></Modal>}
       <div className="flex flex-col py-3">
         <h1 className={'mx-6 place-items-start text-3xl font-bold'}>Download clients</h1>
       </div>
@@ -84,10 +83,10 @@ const Settings = () => {
       </div>
       <div className={'px-6 py-4'}>
         <Button title={'Add'} onClick={() => openModal('client')}></Button>
-
       </div>
-      {isOpen.type === 'client' && <Modal isOpen={isOpen.open} closeModal={closeModal} title={"Add download client"}></Modal>}
-
+      {isOpen.type === 'client' && (
+        <Modal isOpen={isOpen.open} closeModal={closeModal} title={'Add download client'}></Modal>
+      )}
     </div>
   );
 };

@@ -1,15 +1,15 @@
 import React from 'react';
-import { FaExclamationTriangle } from "react-icons/fa";
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 function Announcement() {
-    return (
-        <div className='bg-gray-800 text-white m-0 h-min flex items-center justify-center py-1 w-full '>
-            <FaExclamationTriangle className='flex items-center justify-center mt-1 mr-2' />
-            <h1>During testing phase you need to get your own API-keys and put them into <strong>config.json</strong></h1>
-            </div>
-    )
+  return (
+    <div className="m-0 flex h-min w-full items-center justify-center bg-gray-800 py-1 text-white ">
+      <FaExclamationTriangle className="mr-2 mt-1 flex items-center justify-center" />
+      <h1>
+        During testing phase you need to get your own API-keys and put them into <strong>config.json</strong>
+      </h1>
+    </div>
+  );
 }
-
-
 
 export default Announcement;

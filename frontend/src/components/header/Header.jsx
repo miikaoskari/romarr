@@ -2,7 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 const Header = ({ children }) => {
   return (
-    <div className={'flex items-center bg-gray-900 p-1 rounded-3xl m-1 right-0 w-max bottom-0 mb-2 fixed hover:p-5 transition-all text-white'}>
+    <div
+      className={
+        'fixed bottom-0 right-0 m-1 mb-2 flex w-max items-center rounded-3xl bg-gray-900 p-1 text-white transition-all hover:p-5'
+      }
+    >
       {React.Children.map(children, (child) => (
         <div className={'flex-1'}>{child}</div>
       ))}
