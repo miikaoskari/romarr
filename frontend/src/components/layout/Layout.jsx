@@ -6,33 +6,18 @@ import { Breadcrumbs } from '@mui/material';
 
 const Layout = () => {
   const location = useLocation();
-  let MainContent;
 
-  switch (location.pathname) {
-    case '/':
-      MainContent = <Home />;
-      break;
-    case '/about':
-      MainContent = <About />;
-      break;
-    case '/activity':
-      MainContent = <Activity />;
-      break;
-    case '/games':
-      MainContent = <Games />;
-      break;
-    case '/settings':
-      MainContent = <Settings />;
-      break;
-    case '/login':
-      MainContent = <Login />;
-      break;
-      case '/home':
-        MainContent = <Home />;
-        break;
-    default:
-      MainContent = <Dashboard />;
-  }
+  const routes = {
+    '/': <Dashboard />,
+    '/about': <About />,
+    '/activity': <Activity />,
+    '/games': <Games />,
+    '/settings': <Settings />,
+    '/login': <Login />,
+    '/home': <Home />,
+  };
+
+  const MainContent = routes[location.pathname] || <Dashboard />;
 
   // Split the current path
   const pathnames = location.pathname.split('/').filter((x) => x);
@@ -45,11 +30,13 @@ const Layout = () => {
 
   return (
     <div className="">
-      <Announcement/>
+      <Announcement />
       <Navbar />
       <RoundedBox>
         <Header>
-        <Breadcrumbs aria-label={'breadcrumb'} className="px-4 bg-gray-900 w-max rounded-3xl py-2 ">            <Link to="/">Home</Link>
+          <Breadcrumbs aria-label={'breadcrumb'} className="w-max rounded-3xl bg-gray-900 px-4 py-2 ">
+            {' '}
+            <Link to="/">Home</Link>
             {pathnames.map((value, index) => {
               const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
