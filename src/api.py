@@ -5,7 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from .igdb import Igdb
+from db import Database
+from igdb import Igdb
 
 app = FastAPI()
 
@@ -22,6 +23,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+database = Database()
+database.create_all()
 
 
 # Serve the API
@@ -64,13 +68,15 @@ async def get_games():
 
 
 # Function for adding a game
-@app.post("/api/games")
-async def add_game():
-    return {"game": "game"}
+@app.post("/api/games/{game_id}")
+async def add_game(game_id):
+    database.add_to_db(db_object=game_id)
+    return {"game_id": game_id}
 
 
 # Function for deleting a game
 @app.delete("/api/games/{game_id}")
 async def delete_game(game_id):
+    database.remove_from_db(db_object=game_id)
     return {"game_id": game_id}
 
