@@ -2,7 +2,7 @@ import json
 import http.client
 import os.path
 
-from src.game import Game
+from .game import Game
 
 
 class Igdb:
