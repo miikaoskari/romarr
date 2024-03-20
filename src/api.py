@@ -6,10 +6,10 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
-from database import crud, models, schemas
-from database.database import SessionLocal, engine
+from .database import crud, models, schemas
+from .database.database import SessionLocal, engine
 
-from igdb import Igdb
+from .igdb import Igdb
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -45,7 +45,7 @@ async def read_api():
 
 
 # Serve the frontend
-app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")
+app.mount("/static", StaticFiles(directory="frontend/build", html=True), name="frontend")
 
 
 @app.get("/{catch_all:path}")
@@ -61,6 +61,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_username(db, username=user.username)
     if db_user:
         raise HTTPException(status_code=400, detail="username already registered")
+    return crud.create_user(db=db, user=user)
 
 # Get user by id
 @app.get("/api/users/{user_id}", response_model=schemas.User)

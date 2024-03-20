@@ -29,3 +29,6 @@ config.json
 
 # remove samples
 frontend/src/assets/samples/
+
+# remove database
+app.db

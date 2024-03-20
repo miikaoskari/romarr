@@ -5,7 +5,7 @@ from . import models, schemas
 # CREATE
 def create_user(db: Session, user: schemas.UserCreate):
     fake_hashed_password = user.hashed_password + "notreallyhashed"
-    db_user = models.User(email=user.username, hashed_password=fake_hashed_password)
+    db_user = models.User(username=user.username, hashed_password=fake_hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
