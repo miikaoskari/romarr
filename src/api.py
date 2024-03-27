@@ -61,7 +61,22 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_username(db, username=user.username)
     if db_user:
         raise HTTPException(status_code=400, detail="username already registered")
+    if len(user.hashed_password) > 1024:
+        raise HTTPException(status_code=400, detail="password too long. maximum length 1024")
     return crud.create_user(db=db, user=user)
+
+# Add game to database
+@app.post("/api/games/add", response_model=schemas.Game)
+def create_game(game_id: int, db: Session = Depends(get_db)):
+    igdb_game_details = Igdb(game_id)
+    igdb_game_details.get
+
+
+
+    db_game = db.query(models.Game).filter(models.Game.id == game_id).first()
+    if db_game:
+        raise HTTPException(status_code=400, detail="game already in library")
+    return
 
 # Get user by id
 @app.get("/api/users/{user_id}", response_model=schemas.User)

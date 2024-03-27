@@ -1,6 +1,7 @@
 import json
 import http.client
 import os.path
+import requests
 
 from .game import Game
 
@@ -59,6 +60,9 @@ class Igdb:
                 self.get_game_cover(game_obj)
         except Exception as e:
             print(f"HTTP request failed: {e}")
+
+    def get_game_by_id(self, game_obj):
+         
 
     def get_game_cover(self, game_obj):
         conn = http.client.HTTPSConnection("api.igdb.com")

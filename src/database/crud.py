@@ -1,11 +1,16 @@
 from sqlalchemy.orm import Session
+from hashlib import pbkdf2_hmac
 
 from . import models, schemas
+from os import urandom
 
 # CREATE
 def create_user(db: Session, user: schemas.UserCreate):
-    fake_hashed_password = user.hashed_password + "notreallyhashed"
-    db_user = models.User(username=user.username, hashed_password=fake_hashed_password)
+    iters = 500_000
+    salt = urandom(32)
+    dk = pbkdf2_hmac("sha256", user.hashed_password.encode("utf-8"), salt, iters)
+    hashed_password = dk.hex()
+    db_user = models.User(username=user.username, hashed_password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
