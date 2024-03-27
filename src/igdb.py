@@ -2,6 +2,7 @@ import json
 import http.client
 import os.path
 import requests
+from sqlalchemy import except_
 
 from .game import Game
 
@@ -62,7 +63,24 @@ class Igdb:
             print(f"HTTP request failed: {e}")
 
     def get_game_by_id(self, game_obj):
-         
+        url = "https://api.igdb.com/v4/games"
+
+        payload = "fields *; where id = 1942;"
+        headers = {
+            "Client-ID": f"{self.client_id}",
+            "Authorization": f"Bearer {self.access_id}",
+            "Accept": "application/json"
+        }
+
+        response = requests.post(url, data=payload, headers=headers)
+
+        try:
+            data_dict = json.loads(data.decode("utf-8"))
+        except (KeyError, AttributeError) as e:
+            print(f"Failed to parse game data: {e}")
+            continue
+
+        print(response.json())
 
     def get_game_cover(self, game_obj):
         conn = http.client.HTTPSConnection("api.igdb.com")

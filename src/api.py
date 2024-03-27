@@ -69,14 +69,17 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @app.post("/api/games/add", response_model=schemas.Game)
 def create_game(game_id: int, db: Session = Depends(get_db)):
     igdb_game_details = Igdb(game_id)
-    igdb_game_details.get
-
-
+    igdb_game_details.get_game_by_id()
 
     db_game = db.query(models.Game).filter(models.Game.id == game_id).first()
     if db_game:
         raise HTTPException(status_code=400, detail="game already in library")
-    return
+
+    game = schemas.GameCreate(
+        
+    )
+    
+    return crud.create_game(db=db, game=game)
 
 # Get user by id
 @app.get("/api/users/{user_id}", response_model=schemas.User)
