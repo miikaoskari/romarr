@@ -65,7 +65,7 @@ class Igdb:
     def get_game_by_id(self, game_obj):
         url = "https://api.igdb.com/v4/games"
 
-        payload = "fields *; where id = 1942;"
+        payload = f"fields *; where id = {game_obj.id};"
         headers = {
             "Client-ID": f"{self.client_id}",
             "Authorization": f"Bearer {self.access_id}",
@@ -78,7 +78,6 @@ class Igdb:
             data_dict = json.loads(data.decode("utf-8"))
         except (KeyError, AttributeError) as e:
             print(f"Failed to parse game data: {e}")
-            continue
 
         print(response.json())
 

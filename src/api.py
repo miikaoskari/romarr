@@ -10,6 +10,7 @@ from .database import crud, models, schemas
 from .database.database import SessionLocal, engine
 
 from .igdb import Igdb
+from .game import Game
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -68,15 +69,17 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 # Add game to database
 @app.post("/api/games/add", response_model=schemas.Game)
 def create_game(game_id: int, db: Session = Depends(get_db)):
-    igdb_game_details = Igdb(game_id)
-    igdb_game_details.get_game_by_id()
+    igdb = Igdb()
+    gamec = Game()
+    gamec.id = int(game_id)
+    igdb.get_game_by_id(gamec)
 
     db_game = db.query(models.Game).filter(models.Game.id == game_id).first()
     if db_game:
         raise HTTPException(status_code=400, detail="game already in library")
 
     game = schemas.GameCreate(
-        
+     
     )
     
     return crud.create_game(db=db, game=game)
