@@ -30,6 +30,7 @@ class GameBase(BaseModel):
     collections: Optional[str] = None
 
 class GameCreate(GameBase):
+
     pass
 
 class Game(GameBase):

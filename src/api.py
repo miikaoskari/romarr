@@ -70,16 +70,17 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @app.post("/api/games/add", response_model=schemas.Game)
 def create_game(game_id: int, db: Session = Depends(get_db)):
     igdb = Igdb()
-    gamec = Game()
-    gamec.id = int(game_id)
-    igdb.get_game_by_id(gamec)
+    # Get secrets from config.json
+    igdb.get_config()
+    igdb.game_id = int(game_id)
+    game = igdb.get_game_by_id()
 
     db_game = db.query(models.Game).filter(models.Game.id == game_id).first()
     if db_game:
         raise HTTPException(status_code=400, detail="game already in library")
 
     game = schemas.GameCreate(
-     
+
     )
     
     return crud.create_game(db=db, game=game)
