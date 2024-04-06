@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class GameBase(BaseModel):
     name: str
     alternative_names: Optional[list] = None
@@ -30,25 +31,29 @@ class GameBase(BaseModel):
     collections: Optional[list] = None
     message: Optional[str] = None
 
-class GameCreate(GameBase):
 
+class GameCreate(GameBase):
     pass
+
 
 class Game(GameBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
 
 class UserBase(BaseModel):
     username: str
 
+
 class UserCreate(UserBase):
     hashed_password: str
+
 
 class User(UserBase):
     id: int
     is_active: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True

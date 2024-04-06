@@ -30,6 +30,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -56,6 +57,7 @@ async def serve_frontend(catch_all: str):
     else:
         return FileResponse("frontend/build/index.html")
 
+
 # Create user
 @app.post("/api/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -65,6 +67,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if len(user.hashed_password) > 1024:
         raise HTTPException(status_code=400, detail="password too long. maximum length 1024")
     return crud.create_user(db=db, user=user)
+
 
 # Add game to database
 @app.post("/api/games/add", response_model=schemas.Game)
@@ -87,6 +90,7 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
     else:
         raise HTTPException(status_code=404, detail="Game not found in IGDB")
 
+
 # Get user by id
 @app.get("/api/users/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
@@ -94,6 +98,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
+
 
 # Function for searching for games through IGDB
 @app.get("/api/search/{query}")
@@ -103,11 +108,13 @@ async def search(query):
     igdb_query.search_game()
     return {"query": [game.get_small_description() for game in igdb_query.games]}
 
+
 # Get all games from database
 @app.get("/api/games", response_model=list[schemas.Game])
 def read_games(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     games = crud.get_games(db, skip=skip, limit=limit)
     return games
+
 
 # Get game from database by id
 @app.get("/api/games/{game_id}", response_model=schemas.Game)
@@ -116,4 +123,3 @@ def read_game(game_id: int, db: Session = Depends(get_db)):
     if game is None:
         raise HTTPException(status_code=404, detail="Game not found")
     return game
-
