@@ -70,20 +70,22 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @app.post("/api/games/add", response_model=schemas.Game)
 def create_game(game_id: int, db: Session = Depends(get_db)):
     igdb = Igdb()
-    # Get secrets from config.json
     igdb.get_config()
-    igdb.game_id = int(game_id)
-    game = igdb.get_game_by_id()
+    game_data = igdb.get_game_by_id(game_id)
 
     db_game = db.query(models.Game).filter(models.Game.id == game_id).first()
     if db_game:
-        raise HTTPException(status_code=400, detail="game already in library")
+        raise HTTPException(status_code=400, detail="Game already in library")
 
-    game = schemas.GameCreate(
-
-    )
-    
-    return crud.create_game(db=db, game=game)
+    if game_data:
+        if isinstance(game_data, list) and len(game_data) == 1:  # Check if it's a list with one item
+            game_data = game_data[0]  # Extract the dictionary from the list
+            game = schemas.GameCreate(**game_data)
+            return crud.create_game(db=db, game=game)
+        else:
+            raise ValueError("Unexpected game data format from IGDB API")
+    else:
+        raise HTTPException(status_code=404, detail="Game not found in IGDB")
 
 # Get user by id
 @app.get("/api/users/{user_id}", response_model=schemas.User)

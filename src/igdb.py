@@ -12,7 +12,6 @@ class Igdb:
         self.client_id = None
         self.secret_id = None
         self.access_id = None
-        self.game_id = None
         self.limit = 4
         self.count = 0
         self.name = name
@@ -63,10 +62,10 @@ class Igdb:
         except Exception as e:
             print(f"HTTP request failed: {e}")
 
-    def get_game_by_id(self):
+    def get_game_by_id(self, game_id):
         url = "https://api.igdb.com/v4/games"
 
-        payload = f"fields *; where id = {self.game_id};"
+        payload = f"fields *; where id = {game_id};"
         headers = {
             "Client-ID": f"{self.client_id}",
             "Authorization": f"Bearer {self.access_id}",
@@ -76,7 +75,7 @@ class Igdb:
         response = requests.post(url, data=payload, headers=headers)
 
         try:
-            return response.json
+            return response.json()
         except (KeyError, AttributeError) as e:
             print(f"Failed to parse game data: {e}")
             return

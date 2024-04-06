@@ -14,8 +14,8 @@ class Game(Base):
     category = Column(String)
     cover = Column(String)
     cover_url = Column(String)
-    created_at = Column(DateTime)
-    final_release_date = Column(DateTime)
+    created_at = Column(String)
+    final_release_date = Column(String)
     franchises = Column(String)
     game_modes = Column(String)
     involves_companies = Column(String)
@@ -29,11 +29,12 @@ class Game(Base):
     summary = Column(String)
     tags = Column(String)
     themes = Column(String)
-    updated_at = Column(DateTime)
+    updated_at = Column(String)
     url = Column(String)
     websites = Column(String)
     checksum = Column(String)
     collections = Column(String)
+    message = Column(String)
 
 class User(Base):
     __tablename__ = "users"

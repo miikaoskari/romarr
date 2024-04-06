@@ -3,31 +3,32 @@ from typing import Optional
 
 class GameBase(BaseModel):
     name: str
-    alternative_names: Optional[str] = None
-    artworks: Optional[str] = None
-    category: Optional[str] = None
-    cover: Optional[str] = None
+    alternative_names: Optional[list] = None
+    artworks: Optional[list] = None
+    category: Optional[int] = None
+    cover: Optional[int] = None
     cover_url: Optional[str] = None
-    created_at: Optional[str] = None
+    created_at: Optional[int] = None
     final_release_date: Optional[str] = None
-    franchises: Optional[str] = None
-    game_modes: Optional[str] = None
+    franchises: Optional[list] = None
+    game_modes: Optional[list] = None
     involves_companies: Optional[str] = None
     parent_game: Optional[str] = None
-    platforms: Optional[str] = None
-    player_perspectives: Optional[str] = None
-    release_dates: Optional[str] = None
-    screenshots: Optional[str] = None
-    similar_games: Optional[str] = None
+    platforms: Optional[list] = None
+    player_perspectives: Optional[list] = None
+    release_dates: Optional[list] = None
+    screenshots: Optional[list] = None
+    similar_games: Optional[list] = None
     slug: Optional[str] = None
     summary: Optional[str] = None
-    tags: Optional[str] = None
-    themes: Optional[str] = None
-    updated_at: Optional[str] = None
+    tags: Optional[list] = None
+    themes: Optional[list] = None
+    updated_at: Optional[int] = None
     url: Optional[str] = None
-    websites: Optional[str] = None
+    websites: Optional[list] = None
     checksum: Optional[str] = None
-    collections: Optional[str] = None
+    collections: Optional[list] = None
+    message: Optional[str] = None
 
 class GameCreate(GameBase):
 
