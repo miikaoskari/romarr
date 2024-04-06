@@ -1,34 +1,124 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
+
+
+class AlternativeName(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Artwork(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class CoverURL(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Franchise(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class GameMode(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class PlayerPerspective(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class InvolvedCompany(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Platform(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class ReleaseDate(BaseModel):
+    id: int
+    date: int
+    parent_id: int
+
+
+class Screenshot(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class SimilarGame(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Tag(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Theme(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Website(BaseModel):
+    id: int
+    name: int
+    parent_id: int
+
+
+class Collection(BaseModel):
+    id: int
+    name: int
+    parent_id: int
 
 
 class GameBase(BaseModel):
     name: str
-    alternative_names: Optional[list] = None
-    artworks: Optional[list] = None
+    alternative_names: Optional[List[AlternativeName]] = None
+    artworks: Optional[List[Artwork]] = None
     category: Optional[int] = None
     cover: Optional[int] = None
-    cover_url: Optional[str] = None
+    cover_url: Optional[List[CoverURL]] = None
     created_at: Optional[int] = None
     final_release_date: Optional[str] = None
-    franchises: Optional[list] = None
-    game_modes: Optional[list] = None
-    involves_companies: Optional[list] = None
+    franchises: Optional[List[Franchise]] = None
+    game_modes: Optional[List[GameMode]] = None
+    involves_companies: Optional[List[InvolvedCompany]] = None
     parent_game: Optional[str] = None
-    platforms: Optional[list] = None
-    player_perspectives: Optional[list] = None
-    release_dates: Optional[list] = None
-    screenshots: Optional[list] = None
-    similar_games: Optional[list] = None
+    platforms: Optional[List[Platform]] = None
+    player_perspectives: Optional[List[PlayerPerspective]] = None
+    release_dates: Optional[List[ReleaseDate]] = None
+    screenshots: Optional[List[Screenshot]] = None
+    similar_games: Optional[List[SimilarGame]] = None
     slug: Optional[str] = None
     summary: Optional[str] = None
-    tags: Optional[list] = None
-    themes: Optional[list] = None
+    tags: Optional[List[Tag]] = None
+    themes: Optional[List[Theme]] = None
     updated_at: Optional[int] = None
     url: Optional[str] = None
-    websites: Optional[list] = None
+    websites: Optional[List[Website]] = None
     checksum: Optional[str] = None
-    collections: Optional[list] = None
+    collections: Optional[List[Collection]] = None
     message: Optional[str] = None
 
 
