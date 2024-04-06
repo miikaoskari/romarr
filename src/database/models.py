@@ -9,7 +9,7 @@ from .database import Base
 class Game(Base):
     __tablename__ = 'games'
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id = Column(Integer, primary_key=True)
     name = Column(String)
     alternative_names = relationship("AlternativeName", back_populates="parent")
     artworks = relationship("Artwork", back_populates="parent")
@@ -20,7 +20,7 @@ class Game(Base):
     final_release_date = Column(String)
     franchises = relationship("Franchise", back_populates="parent")
     game_modes = relationship("GameMode", back_populates="parent")
-    involves_companies = relationship("InvolvedCompany", back_populates="parent")
+    involved_companies = relationship("InvolvedCompany", back_populates="parent")
     parent_game = Column(String)
     platforms = relationship("Platform", back_populates="parent")
     player_perspectives = relationship("PlayerPerspective", back_populates="parent")
@@ -100,7 +100,7 @@ class PlayerPerspective(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="player_perspective")
+    parent = relationship("Game", back_populates="player_perspectives")
 
 class ReleaseDate(Base):
     __tablename__ = 'release_dates'

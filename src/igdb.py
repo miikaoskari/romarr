@@ -2,7 +2,6 @@ import json
 import http.client
 import os.path
 import requests
-from sqlalchemy import except_
 
 from .game import Game
 
@@ -114,7 +113,8 @@ class Igdb:
             print(f"HTTP request failed: {e}")
 
 
-igdb_query = Igdb("halo")
-igdb_query.get_config()
-igdb_query.search_game()
-print(igdb_query.games)
+if __name__ == "__main__":
+    igdb_query = Igdb("halo")
+    igdb_query.get_config()
+    igdb_query.search_game()
+    print(igdb_query.games)
