@@ -43,135 +43,135 @@ class AlternativeName(Base):
     __tablename__ = 'alt_names'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    alternative_name = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="alternative_names")
+    game = relationship("Game", back_populates="alternative_names")
 
 
 class Artwork(Base):
     __tablename__ = 'artworks'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    artwork = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="artworks")
+    game = relationship("Game", back_populates="artworks")
 
 
 class CoverURL(Base):
     __tablename__ = 'cover_urls'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    cover_url = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="cover_url")
+    game = relationship("Game", back_populates="cover_url")
 
 
 class Franchise(Base):
     __tablename__ = 'franchises'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    franchise = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="franchises")
+    game = relationship("Game", back_populates="franchises")
 
 
 class GameMode(Base):
     __tablename__ = 'game_modes'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    game_mode = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="game_modes")
+    game = relationship("Game", back_populates="game_modes")
 
 
 class InvolvedCompany(Base):
     __tablename__ = 'involved_companies'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    involved_company = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="involved_companies")
+    game = relationship("Game", back_populates="involved_companies")
 
 
 class Platform(Base):
     __tablename__ = 'platforms'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    platform = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="platforms")
+    game = relationship("Game", back_populates="platforms")
 
 
 class PlayerPerspective(Base):
     __tablename__ = 'player_perspectives'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    player_perspective = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="player_perspectives")
+    game = relationship("Game", back_populates="player_perspectives")
 
 
 class ReleaseDate(Base):
     __tablename__ = 'release_dates'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    release_date = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="release_dates")
+    game = relationship("Game", back_populates="release_dates")
 
 
 class Screenshot(Base):
     __tablename__ = 'screenshots'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    screenshot = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="screenshots")
+    game = relationship("Game", back_populates="screenshots")
 
 
 class SimilarGame(Base):
     __tablename__ = 'similar_games'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    similar_game = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="similar_games")
+    game = relationship("Game", back_populates="similar_games")
 
 
 class Tag(Base):
     __tablename__ = 'tags'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    tag = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="tags")
+    game = relationship("Game", back_populates="tags")
 
 
 class Theme(Base):
     __tablename__ = 'themes'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    theme = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="themes")
+    game = relationship("Game", back_populates="themes")
 
 
 class Website(Base):
     __tablename__ = 'websites'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    website = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="websites")
+    game = relationship("Game", back_populates="websites")
 
 
 class Collection(Base):
     __tablename__ = 'collections'
 
     id = Column(Integer, primary_key=True)
-    name = Column(Integer)
+    collection = Column(Integer)
     parent_id = Column(Integer, ForeignKey("games.id"))
-    parent = relationship("Game", back_populates="collections")
+    game = relationship("Game", back_populates="collections")
 
 
 class User(Base):
