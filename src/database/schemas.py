@@ -103,7 +103,7 @@ class GameBase(BaseModel):
     final_release_date: Optional[str] = None
     franchises: Optional[List[Franchise]] = None
     game_modes: Optional[List[GameMode]] = None
-    involves_companies: Optional[List[InvolvedCompany]] = None
+    involved_companies: Optional[List[InvolvedCompany]] = None
     parent_game: Optional[str] = None
     platforms: Optional[List[Platform]] = None
     player_perspectives: Optional[List[PlayerPerspective]] = None
