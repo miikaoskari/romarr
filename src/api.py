@@ -85,20 +85,20 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
         if isinstance(game_data, list) and len(game_data) == 1:  # Check if it's a list with one item
             game_data = game_data[0]  # Extract the dictionary from the list
 
-            alternative_names = create_schema_instances(game_data.pop("alternative_names"), schemas.AlternativeName, 'alternative_name')
-            artworks = create_schema_instances(game_data.pop("artworks"), schemas.Artwork, 'artwork')
-            franchises = create_schema_instances(game_data.pop("franchises"), schemas.Franchise, 'franchise')
-            game_modes = create_schema_instances(game_data.pop("game_modes"), schemas.GameMode, 'game_mode')
-            involved_companies = create_schema_instances(game_data.pop("involved_companies"), schemas.InvolvedCompany, 'involved_company')
-            platforms = create_schema_instances(game_data.pop("platforms"), schemas.Platform, 'platform')
-            player_perspectives = create_schema_instances(game_data.pop("player_perspectives"), schemas.PlayerPerspective, 'player_perspective')
-            release_dates = create_schema_instances(game_data.pop("release_dates"), schemas.ReleaseDate, 'release_date')
-            screenshots = create_schema_instances(game_data.pop("screenshots"), schemas.Screenshot, 'screenshot')
-            similar_games = create_schema_instances(game_data.pop("similar_games"), schemas.SimilarGame, 'similar_game')
-            tags = create_schema_instances(game_data.pop("tags"), schemas.Tag, 'tag')
-            themes = create_schema_instances(game_data.pop("themes"), schemas.Theme, 'theme')
-            websites = create_schema_instances(game_data.pop("websites"), schemas.Website, 'website')
-            collections = create_schema_instances(game_data.pop("collections"), schemas.Collection, 'collection')
+            alternative_names = create_schema_instances(game_data.pop("alternative_names", []), schemas.AlternativeName, 'alternative_name')
+            artworks = create_schema_instances(game_data.pop("artworks", []), schemas.Artwork, 'artwork')
+            franchises = create_schema_instances(game_data.pop("franchises", []), schemas.Franchise, 'franchise')
+            game_modes = create_schema_instances(game_data.pop("game_modes", []), schemas.GameMode, 'game_mode')
+            involved_companies = create_schema_instances(game_data.pop("involved_companies", []), schemas.InvolvedCompany, 'involved_company')
+            platforms = create_schema_instances(game_data.pop("platforms", []), schemas.Platform, 'platform')
+            player_perspectives = create_schema_instances(game_data.pop("player_perspectives", []), schemas.PlayerPerspective, 'player_perspective')
+            release_dates = create_schema_instances(game_data.pop("release_dates", []), schemas.ReleaseDate, 'release_date')
+            screenshots = create_schema_instances(game_data.pop("screenshots", []), schemas.Screenshot, 'screenshot')
+            similar_games = create_schema_instances(game_data.pop("similar_games", []), schemas.SimilarGame, 'similar_game')
+            tags = create_schema_instances(game_data.pop("tags", []), schemas.Tag, 'tag')
+            themes = create_schema_instances(game_data.pop("themes", []), schemas.Theme, 'theme')
+            websites = create_schema_instances(game_data.pop("websites", []), schemas.Website, 'website')
+            collections = create_schema_instances(game_data.get("collections", []), schemas.Collection, 'collection')
 
             game = schemas.GameCreate(
                 **game_data,
