@@ -83,7 +83,96 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
     if game_data:
         if isinstance(game_data, list) and len(game_data) == 1:  # Check if it's a list with one item
             game_data = game_data[0]  # Extract the dictionary from the list
-            game = schemas.GameCreate(**game_data)
+
+            # Extract data for alternative names and create instances
+            alternative_names_data = game_data.pop("alternative_names", None)
+            alternative_names = []
+            if alternative_names_data:
+                for name_id in alternative_names_data:
+                    alternative_names.append(schemas.AlternativeName(alternative_name=name_id))
+            artworks_data = game_data.pop("artworks", None)
+            artworks = []
+            if artworks_data:
+                for artwork_id in artworks_data:
+                    artworks.append(schemas.Artwork(artwork=artwork_id))
+            franchises_data = game_data.pop("franchises", None)
+            franchises = []
+            if franchises_data:
+                for franchise_id in franchises_data:
+                    franchises.append(schemas.Franchise(franchise=franchise_id))
+            game_modes_data = game_data.pop("game_modes", None)
+            game_modes = []
+            if game_modes_data:
+                for game_mode_id in game_modes_data:
+                    game_modes.append(schemas.GameMode(game_mode=game_mode_id))
+            involved_companies_data = game_data.pop("involved_companies", None)
+            involved_companies = []
+            if involved_companies_data:
+                for involved_company_id in involved_companies_data:
+                    involved_companies.append(schemas.InvolvedCompany(involved_company=involved_company_id))
+            platforms_data = game_data.pop("platforms", None)
+            platforms = []
+            if platforms_data:
+                for platform_id in platforms_data:
+                    platforms.append(schemas.Platform(platform=platform_id))
+            player_perspectives_data = game_data.pop("player_perspectives", None)
+            player_perspectives = []
+            if player_perspectives_data:
+                for player_perspective_id in player_perspectives_data:
+                    player_perspectives.append(schemas.PlayerPerspective(player_perspective=player_perspective_id))
+            release_dates_data = game_data.pop("release_dates", None)
+            release_dates = []
+            if release_dates_data:
+                for release_date_id in release_dates_data:
+                    release_dates.append(schemas.ReleaseDate(release_date=release_date_id))
+            screenshots_data = game_data.pop("screenshots", None)
+            screenshots = []
+            if screenshots_data:
+                for screenshot_id in screenshots_data:
+                    screenshots.append(schemas.Screenshot(screenshot=screenshot_id))
+            similar_games_data = game_data.pop("similar_games", None)
+            similar_games = []
+            if similar_games_data:
+                for similar_game_id in similar_games_data:
+                    similar_games.append(schemas.SimilarGame(similar_game=similar_game_id))
+            tags_data = game_data.pop("tags", None)
+            tags = []
+            if tags_data:
+                for tag_id in tags_data:
+                    tags.append(schemas.Tag(tag=tag_id))
+            themes_data = game_data.pop("themes", None)
+            themes = []
+            if themes_data:
+                for theme_id in themes_data:
+                    themes.append(schemas.Theme(theme=theme_id))
+            websites_data = game_data.pop("websites", None)
+            websites = []
+            if websites_data:
+                for website_id in websites_data:
+                    websites.append(schemas.Website(website=website_id))
+            collections_data = game_data.pop("collections", None)
+            collections = []
+            if collections_data:
+                for collection_id in collections_data:
+                    collections.append(schemas.Collection(collection=collection_id))
+
+            game = schemas.GameCreate(
+                **game_data,
+                alternative_names=alternative_names,
+                artworks=artworks,
+                franchises=franchises,
+                game_modes=game_modes,
+                involved_companies=involved_companies,
+                platforms=platforms,
+                player_perspectives=player_perspectives,
+                release_dates=release_dates,
+                screenshots=screenshots,
+                similar_games=similar_games,
+                tags=tags,
+                themes=themes,
+                websites=websites,
+                collections=collections
+            )
             return crud.create_game(db=db, game=game)
         else:
             raise ValueError("Unexpected game data format from IGDB API")
