@@ -4,91 +4,91 @@ from typing import Optional, List
 
 class AlternativeName(BaseModel):
     id: int
-    name: int
+    alternative_name: int
     parent_id: int
 
 
 class Artwork(BaseModel):
     id: int
-    name: int
+    artwork: int
     parent_id: int
 
 
 class CoverURL(BaseModel):
     id: int
-    name: int
+    cover_url: int
     parent_id: int
 
 
 class Franchise(BaseModel):
     id: int
-    name: int
+    franchise: int
     parent_id: int
 
 
 class GameMode(BaseModel):
     id: int
-    name: int
+    game_mode: int
     parent_id: int
 
 
 class PlayerPerspective(BaseModel):
     id: int
-    name: int
+    player_perspective: int
     parent_id: int
 
 
 class InvolvedCompany(BaseModel):
     id: int
-    name: int
+    involved_company: int
     parent_id: int
 
 
 class Platform(BaseModel):
     id: int
-    name: int
+    platform: int
     parent_id: int
 
 
 class ReleaseDate(BaseModel):
     id: int
-    date: int
+    release_date: int
     parent_id: int
 
 
 class Screenshot(BaseModel):
     id: int
-    name: int
+    screenshot: int
     parent_id: int
 
 
 class SimilarGame(BaseModel):
     id: int
-    name: int
+    similar_game: int
     parent_id: int
 
 
 class Tag(BaseModel):
     id: int
-    name: int
+    tag: int
     parent_id: int
 
 
 class Theme(BaseModel):
     id: int
-    name: int
+    theme: int
     parent_id: int
 
 
 class Website(BaseModel):
     id: int
-    name: int
+    website: int
     parent_id: int
 
 
 class Collection(BaseModel):
     id: int
-    name: int
+    collection: int
     parent_id: int
 
 
