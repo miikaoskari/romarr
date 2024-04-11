@@ -64,7 +64,7 @@ class Igdb:
     def get_game_by_id(self, game_id):
         url = "https://api.igdb.com/v4/games"
 
-        payload = f"fields cover, name, checksum, release_dates, dlcs, expansions, rating, screenshots, summary, url, artworks; where id = {game_id};"
+        payload = f"fields artworks, cover, dlcs, expansions, franchises, genres, name, platforms, rating, release_dates, screenshots, summary, url, checksum; where id = {game_id};"
         headers = {
             "Client-ID": f"{self.client_id}",
             "Authorization": f"Bearer {self.access_id}",
