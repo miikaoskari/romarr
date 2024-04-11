@@ -1,0 +1,128 @@
+{
+  "name": "igdb",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "games",
+      "seq": 2,
+      "request": {
+        "url": "https://api.igdb.com/v4/games",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Client-ID",
+            "value": "{{client_id}}",
+            "enabled": true
+          },
+          {
+            "name": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "enabled": true
+          },
+          {
+            "name": "Accept",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "text",
+          "text": "fields artworks, cover, dlcs, expansions, franchises, genres, name, platforms, rating, release_dates, screenshots, summary, url, checksum; where id = 1942;",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "auth": {
+          "mode": "none",
+          "basic": {
+            "username": "",
+            "password": ""
+          },
+          "bearer": {
+            "token": ""
+          }
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "query": []
+      }
+    },
+    {
+      "type": "http",
+      "name": "twitch auth",
+      "seq": 1,
+      "request": {
+        "url": "https://id.twitch.tv/oauth2/token?client_id={{client_id}}&client_secret={{client_secret}}&grant_type=client_credentials",
+        "method": "POST",
+        "headers": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "auth": {
+          "mode": "none",
+          "basic": {
+            "username": "",
+            "password": ""
+          },
+          "bearer": {
+            "token": ""
+          }
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "query": [
+          {
+            "name": "client_id",
+            "value": "{{client_id}}",
+            "enabled": true
+          },
+          {
+            "name": "client_secret",
+            "value": "{{client_secret}}",
+            "enabled": true
+          },
+          {
+            "name": "grant_type",
+            "value": "client_credentials",
+            "enabled": true
+          }
+        ]
+      }
+    }
+  ],
+  "activeEnvironmentUid": "rV1VCBzRwbVy7KVMHMK92",
+  "environments": [
+    {
+      "variables": [
+        {
+          "name": "client_id",
+          "value": "",
+          "enabled": true,
+          "secret": true,
+          "type": "text"
+        },
+        {
+          "name": "client_secret",
+          "value": "",
+          "enabled": true,
+          "secret": true,
+          "type": "text"
+        },
+        {
+          "name": "access_token",
+          "value": "",
+          "enabled": true,
+          "secret": true,
+          "type": "text"
+        }
+      ],
+      "name": "igdb"
+    }
+  ]
+}
