@@ -4,6 +4,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy.engine import create
 from sqlalchemy.orm import Session
 
 from .database import crud, models, schemas
@@ -85,37 +86,25 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
         if isinstance(game_data, list) and len(game_data) == 1:  # Check if it's a list with one item
             game_data = game_data[0]  # Extract the dictionary from the list
 
-            alternative_names = create_schema_instances(game_data.pop("alternative_names", []), schemas.AlternativeName, 'alternative_name')
             artworks = create_schema_instances(game_data.pop("artworks", []), schemas.Artwork, 'artwork')
+            dlcs = create_schema_instances(game_data.pop("dlcs", []), schemas.DLC, 'dlc')
+            expansions = create_schema_instances(game_data.pop("expansions", []), schemas.Expansion, 'expansion')
             franchises = create_schema_instances(game_data.pop("franchises", []), schemas.Franchise, 'franchise')
-            game_modes = create_schema_instances(game_data.pop("game_modes", []), schemas.GameMode, 'game_mode')
-            involved_companies = create_schema_instances(game_data.pop("involved_companies", []), schemas.InvolvedCompany, 'involved_company')
+            genres = create_schema_instances(game_data.get("genres", []), schemas.Genre, 'genre')
             platforms = create_schema_instances(game_data.pop("platforms", []), schemas.Platform, 'platform')
-            player_perspectives = create_schema_instances(game_data.pop("player_perspectives", []), schemas.PlayerPerspective, 'player_perspective')
             release_dates = create_schema_instances(game_data.pop("release_dates", []), schemas.ReleaseDate, 'release_date')
             screenshots = create_schema_instances(game_data.pop("screenshots", []), schemas.Screenshot, 'screenshot')
-            similar_games = create_schema_instances(game_data.pop("similar_games", []), schemas.SimilarGame, 'similar_game')
-            tags = create_schema_instances(game_data.pop("tags", []), schemas.Tag, 'tag')
-            themes = create_schema_instances(game_data.pop("themes", []), schemas.Theme, 'theme')
-            websites = create_schema_instances(game_data.pop("websites", []), schemas.Website, 'website')
-            collections = create_schema_instances(game_data.get("collections", []), schemas.Collection, 'collection')
 
             game = schemas.GameCreate(
                 **game_data,
-                alternative_names=alternative_names,
                 artworks=artworks,
+                dlcs=dlcs,
+                expansions=expansions,
                 franchises=franchises,
-                game_modes=game_modes,
-                involved_companies=involved_companies,
+                genres=genres,
                 platforms=platforms,
-                player_perspectives=player_perspectives,
                 release_dates=release_dates,
-                screenshots=screenshots,
-                similar_games=similar_games,
-                tags=tags,
-                themes=themes,
-                websites=websites,
-                collections=collections
+                screenshots=screenshots
             )
             return crud.create_game(db=db, game=game)
         else:

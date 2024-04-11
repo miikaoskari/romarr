@@ -1,5 +1,5 @@
-from sqlalchemy import Column, DateTime, Integer, String, Boolean, ForeignKey
-from sqlalchemy.orm import MappedAsDataclass, mapped_column, relationship, Mapped
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Float
+from sqlalchemy.orm import relationship, Mapped
 
 from typing import List
 
@@ -10,41 +10,20 @@ class Game(Base):
     __tablename__ = 'games'
 
     id: Mapped[int] = Column(Integer, primary_key=True)
-    name = Column(String)
-    alternative_names: Mapped[List["AlternativeName"]] = relationship("AlternativeName", back_populates="game")
     artworks: Mapped[List["Artwork"]] = relationship("Artwork", back_populates="game")
-    category = Column(String)
     cover = Column(String)
-    created_at = Column(String)
-    final_release_date = Column(String)
+    dlcs: Mapped[List["DLC"]] = relationship("DLC", back_populates="game")
+    expansions: Mapped[List["Expansion"]] = relationship("Expansion", back_populates="game")
     franchises: Mapped[List["Franchise"]] = relationship("Franchise", back_populates="game")
-    game_modes: Mapped[List["GameMode"]] = relationship("GameMode", back_populates="game")
-    involved_companies: Mapped[List["InvolvedCompany"]] = relationship("InvolvedCompany", back_populates="game")
-    parent_game = Column(String)
+    genres: Mapped[List["Genre"]] = relationship("Genre", back_populates="game")
+    name = Column(String)
     platforms: Mapped[List["Platform"]] = relationship("Platform", back_populates="game")
-    player_perspectives: Mapped[List["PlayerPerspective"]] = relationship("PlayerPerspective", back_populates="game")
+    rating = Column(Float)
     release_dates: Mapped[List["ReleaseDate"]] = relationship("ReleaseDate", back_populates="game")
     screenshots: Mapped[List["Screenshot"]] = relationship("Screenshot", back_populates="game")
-    similar_games: Mapped[List["SimilarGame"]] = relationship("SimilarGame", back_populates="game")
-    slug = Column(String)
     summary = Column(String)
-    tags: Mapped[List["Tag"]] = relationship("Tag", back_populates="game")
-    themes: Mapped[List["Theme"]] = relationship("Theme", back_populates="game")
-    updated_at = Column(String)
     url = Column(String)
-    websites: Mapped[List["Website"]] = relationship("Website", back_populates="game")
     checksum = Column(String)
-    collections: Mapped[List["Collection"]] = relationship("Collection", back_populates="game")
-    message = Column(String)
-
-
-class AlternativeName(Base):
-    __tablename__ = 'alt_names'
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    alternative_name = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="alternative_names")
 
 
 class Artwork(Base):
@@ -55,6 +34,21 @@ class Artwork(Base):
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="artworks")
 
+class DLC(Base):
+    __tablename__ = 'dlcs'
+
+    id: Mapped[int] = Column(Integer, primary_key=True)
+    dlc = Column(Integer)
+    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
+    game: Mapped[Game] = relationship("Game", back_populates="dlcs")
+
+class Expansion(Base):
+    __tablename__ = 'expansions'
+
+    id: Mapped[int] = Column(Integer, primary_key=True)
+    expansion = Column(Integer)
+    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
+    game: Mapped[Game] = relationship("Game", back_populates="expansions")
 
 class Franchise(Base):
     __tablename__ = 'franchises'
@@ -64,23 +58,13 @@ class Franchise(Base):
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="franchises")
 
-
-class GameMode(Base):
-    __tablename__ = 'game_modes'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    game_mode = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="game_modes")
-
-
-class InvolvedCompany(Base):
-    __tablename__ = 'involved_companies'
+class Genre(Base):
+    __tablename__ = 'genres'
 
     id: Mapped[int] = Column(Integer, primary_key=True)
-    involved_company = Column(Integer)
+    genre = Column(Integer)
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="involved_companies")
+    game: Mapped[Game] = relationship("Game", back_populates="genres")
 
 
 class Platform(Base):
@@ -90,15 +74,6 @@ class Platform(Base):
     platform = Column(Integer)
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="platforms")
-
-
-class PlayerPerspective(Base):
-    __tablename__ = 'player_perspectives'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    player_perspective = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="player_perspectives")
 
 
 class ReleaseDate(Base):
@@ -117,42 +92,6 @@ class Screenshot(Base):
     screenshot = Column(Integer)
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="screenshots")
-
-
-class SimilarGame(Base):
-    __tablename__ = 'similar_games'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    similar_game = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="similar_games")
-
-
-class Tag(Base):
-    __tablename__ = 'tags'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    tag = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="tags")
-
-
-class Theme(Base):
-    __tablename__ = 'themes'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    theme = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="themes")
-
-
-class Website(Base):
-    __tablename__ = 'websites'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    website = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="websites")
 
 
 class Collection(Base):
