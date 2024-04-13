@@ -4,7 +4,7 @@ import requests
 
 
 class Igdb:
-    def __init__(self, name=""):
+    def __init__(self):
         self.client_id = None
         self.secret_id = None
         self.access_id = None
@@ -93,6 +93,27 @@ class Igdb:
 
         response = requests.post(url, data=payload, headers=headers)
 
+        data = response.json()
+        for item in data:
+            item['url'] = item['url'].replace('t_thumb', 't_cover_big')
+
+        try:
+            return json.dumps(data, indent=2)
+        except (KeyError, AttributeError) as e:
+            print(f"Failed to parse screenshot data: {e}")
+            return
+
+    def get_game_artwork(self, artwork_id):
+        url = "https://api.igdb.com/v4/artworks"
+
+        payload = f"fields url; where id = {artwork_id};"
+        headers = {
+            "Client-ID": f"{self.client_id}",
+            "Authorization": f"Bearer {self.access_id}",
+            "Accept": "application/json"
+        }
+
+        response = requests.post(url, data=payload, headers=headers)
         data = response.json()
         for item in data:
             item['url'] = item['url'].replace('t_thumb', 't_cover_big')

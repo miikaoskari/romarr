@@ -90,7 +90,7 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
             dlcs = create_schema_instances(game_data.pop("dlcs", []), schemas.DLC, 'dlc')
             expansions = create_schema_instances(game_data.pop("expansions", []), schemas.Expansion, 'expansion')
             franchises = create_schema_instances(game_data.pop("franchises", []), schemas.Franchise, 'franchise')
-            genres = create_schema_instances(game_data.get("genres", []), schemas.Genre, 'genre')
+            genres = create_schema_instances(game_data.pop("genres", []), schemas.Genre, 'genre')
             platforms = create_schema_instances(game_data.pop("platforms", []), schemas.Platform, 'platform')
             release_dates = create_schema_instances(game_data.pop("release_dates", []), schemas.ReleaseDate, 'release_date')
             screenshots = create_schema_instances(game_data.pop("screenshots", []), schemas.Screenshot, 'screenshot')
@@ -125,10 +125,9 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
 # Function for searching for games through IGDB
 @app.get("/api/search/{query}")
 async def search(query):
-    igdb_query = Igdb(query)
+    igdb_query = Igdb()
     igdb_query.get_config()
-    igdb_query.search_game()
-    return {"query": [game.get_small_description() for game in igdb_query.games]}
+    return igdb_query.get_games_by_name(query)
 
 
 # Get all games from database

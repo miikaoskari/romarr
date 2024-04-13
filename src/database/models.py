@@ -94,15 +94,6 @@ class Screenshot(Base):
     game: Mapped[Game] = relationship("Game", back_populates="screenshots")
 
 
-class Collection(Base):
-    __tablename__ = 'collections'
-
-    id: Mapped[int] = Column(Integer, primary_key=True)
-    collection = Column(Integer)
-    parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
-    game: Mapped[Game] = relationship("Game", back_populates="collections")
-
-
 class User(Base):
     __tablename__ = "users"
 
