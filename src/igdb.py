@@ -3,18 +3,12 @@ import http.client
 import os.path
 import requests
 
-from .game import Game
-
 
 class Igdb:
     def __init__(self, name=""):
         self.client_id = None
         self.secret_id = None
         self.access_id = None
-        self.limit = 4
-        self.count = 0
-        self.name = name
-        self.games = []
 
     def get_config(self):
         script_dir = os.path.dirname(__file__)
@@ -27,39 +21,6 @@ class Igdb:
         self.client_id = config["client_id"]
         self.access_id = config["access_id"]
         self.secret_id = config["secret_id"]
-
-    def search_game(self):
-        conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = f"fields *; search \"{self.name}\"; limit 1;"
-        headers = {
-            'Client-ID': self.client_id,
-            'Authorization': 'Bearer ' + self.access_id,
-            'Content-Type': 'application/json',
-        }
-        # TODO: prevent duplicate code
-        try:
-            conn.request("POST", "/v4/games/", payload, headers)
-            res = conn.getresponse()
-            if res.status != 200:
-                print(f"HTTP request failed with status code {res.status}")
-                return
-            data = res.read()
-            try:
-                data_dict = json.loads(data.decode("utf-8"))
-            except json.JSONDecodeError:
-                print("Failed to parse JSON data")
-                return
-            for data in data_dict:
-                game_obj = Game()
-                try:
-                    game_obj.parse_results(json.dumps(data))
-                except (KeyError, AttributeError) as e:
-                    print(f"Failed to parse game data: {e}")
-                    continue
-                self.games.append(game_obj)
-                self.get_game_cover(game_obj)
-        except Exception as e:
-            print(f"HTTP request failed: {e}")
 
     def get_game_by_id(self, game_id):
         url = "https://api.igdb.com/v4/games"
@@ -79,42 +40,52 @@ class Igdb:
             print(f"Failed to parse game data: {e}")
             return
 
+    def get_game_cover(self, cover_id):
+        url = "https://api.igdb.com/v4/covers"
 
-    def get_game_cover(self, game_obj):
-        conn = http.client.HTTPSConnection("api.igdb.com")
-        payload = f"fields *; where id={game_obj.cover};"
+        payload = f"fields url; where id = {cover_id};"
         headers = {
-            'Client-ID': self.client_id,
-            'Authorization': 'Bearer ' + self.access_id,
-            'Content-Type': 'application/json',
+            "Client-ID": f"{self.client_id}",
+            "Authorization": f"Bearer {self.access_id}",
+            "Accept": "application/json"
         }
-        # TODO: prevent duplicate code
-        # TODO: find a way to get covers for all games in single request
-        try:
-            conn.request("POST", "/v4/covers", payload, headers)
-            res = conn.getresponse()
-            if res.status != 200:
-                print(f"HTTP request failed with status code {res.status}")
-                return
-            data = res.read()
-            try:
-                data_dict = json.loads(data.decode("utf-8"))
-            except json.JSONDecodeError:
-                print("Failed to parse JSON data")
-                return
-            if data_dict:
-                try:
-                    url = data_dict[0]["url"]
-                    url = url.lstrip("//")
-                    game_obj.cover_url = url
-                except (KeyError, AttributeError) as e:
-                    print(f"Failed to parse cover data: {e}")
-        except Exception as e:
-            print(f"HTTP request failed: {e}")
 
+        response = requests.post(url, data=payload, headers=headers)
+
+        data = response.json()
+        for item in data:
+            item['url'] = item['url'].replace('t_thumb', 't_cover_big')
+
+        try:
+            return json.dumps(data, indent=2)
+        except (KeyError, AttributeError) as e:
+            print(f"Failed to parse cover data: {e}")
+            return
+
+    def get_game_screenshots(self, screenshot_id):
+        url = "https://api.igdb.com/v4/screenshots"
+
+        payload = f"fields url; where id = {screenshot_id};"
+        headers = {
+            "Client-ID": f"{self.client_id}",
+            "Authorization": f"Bearer {self.access_id}",
+            "Accept": "application/json"
+        }
+
+        response = requests.post(url, data=payload, headers=headers)
+        
+        data = response.json()
+        for item in data:
+            item['url'] = item['url'].replace('t_thumb', 't_cover_big')
+
+        try:
+            return json.dumps(data, indent=2)
+        except (KeyError, AttributeError) as e:
+            print(f"Failed to parse screenshot data: {e}")
+            return
 
 if __name__ == "__main__":
     igdb_query = Igdb("halo")
     igdb_query.get_config()
-    igdb_query.search_game()
-    print(igdb_query.games)
+    print(igdb_query.get_game_cover(191111))
+
