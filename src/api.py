@@ -121,6 +121,8 @@ async def search(query):
 @app.get("/api/games/all", response_model=list[schemas.Game])
 def read_games(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     games = crud.get_games(db, skip=skip, limit=limit)
+    for cover in games:
+        cover.cover_path = os.path.join("/images", cover.cover_path)
     return games
 
 

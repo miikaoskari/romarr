@@ -24,6 +24,9 @@ class Game(Base):
     summary = Column(String)
     url = Column(String)
     checksum = Column(String)
+    cover_path = Column(String)
+    artworks_path = Column(String)
+    screenshots_path = Column(String)
 
 
 class Artwork(Base):

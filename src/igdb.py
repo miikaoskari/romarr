@@ -146,5 +146,5 @@ class Igdb:
 if __name__ == "__main__":
     igdb_query = Igdb()
     igdb_query.get_config()
-    print(igdb_query.get_game_cover(111111))
+    print(igdb_query.get_game_cover(89305))
     igdb_query.get_platform(5)
