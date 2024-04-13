@@ -11,10 +11,10 @@ const Card = ({
   return (
     <div className="max-h-md auto mx-2 my-2 max-w-md rounded-3xl border-2 border-gray-800 bg-gray-800 p-6 shadow-md">
       {children}
-      {name && <p className="text-white-700 text-base">{name}</p>}
-      {cover && <p className="text-white-700 text-base">{cover}</p>}
-      {platforms && <p className="text-white-700 text-base">{platforms}</p>}
-      {rating && <p className="text-white-700 text-base">{rating}</p>}
+      {cover && <p className="text-white-700 text-base mt-2">{cover}</p>}
+      {name && <p className="text-white-700 text-base font-bold">{name}</p>}
+      {platforms && <p className="text-white-700 text-base mt-2">{platforms}</p>}
+      {rating && <p className="text-white-700 text-base">{rating.toFixed(1)}</p>}
     </div>
   );
 };

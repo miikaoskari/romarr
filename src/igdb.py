@@ -124,8 +124,27 @@ class Igdb:
             print(f"Failed to parse screenshot data: {e}")
             return
 
+    def get_platform(self, platform_id):
+        url = "https://api.igdb.com/v4/platforms"
+
+        payload = f"fields name; where id = {platform_id};"
+        headers = {
+            "Client-ID": f"{self.client_id}",
+            "Authorization": f"Bearer {self.access_id}",
+            "Accept": "application/json"
+        }
+
+        response = requests.post(url, data=payload, headers=headers)
+
+        try:
+            return response.json()[0]['name']
+        except (KeyError, AttributeError, IndexError) as e:
+            print(f"Failed to parse platform data: {e}")
+            return
+
 
 if __name__ == "__main__":
     igdb_query = Igdb()
     igdb_query.get_config()
-    print(igdb_query.get_game_cover(191111))
+    print(igdb_query.get_game_cover(111111))
+    igdb_query.get_platform(5)
