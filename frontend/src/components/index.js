@@ -13,3 +13,4 @@ export { default as Header } from './header/Header';
 export { default as Button } from './button/Button';
 export { default as Announcement } from './announcement/Announcement';
 export { default as Modal } from './modal/Modal';
+export { default as SmileyRating } from './smileyrating/SmileyRating';

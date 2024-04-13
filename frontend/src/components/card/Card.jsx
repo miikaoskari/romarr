@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { SmileyRating } from '../index';
 
 const Card = ({
   children,
@@ -14,7 +15,7 @@ const Card = ({
       {cover && <p className="text-white-700 text-base mt-2">{cover}</p>}
       {name && <p className="text-white-700 text-base font-bold">{name}</p>}
       {platforms && <p className="text-white-700 text-base mt-2">{platforms}</p>}
-      {rating && <p className="text-white-700 text-base">{rating.toFixed(1)}</p>}
+      {rating && <SmileyRating rating={rating | 0} size={"lg"}/>}
     </div>
   );
 };
