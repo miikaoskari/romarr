@@ -1,5 +1,4 @@
 import json
-import http.client
 import os.path
 import requests
 
@@ -25,7 +24,8 @@ class Igdb:
     def get_games_by_name(self, name):
         url = "https://api.igdb.com/v4/games"
 
-        payload = f"fields cover, name, checksum, release_dates, dlcs, expansions, rating, screenshots, summary, url, artworks; search \"{name}\"; limit 5;"
+        payload = (f"fields cover, name, checksum, release_dates, dlcs, expansions, rating, screenshots, summary, url, "
+                   f"artworks; search \"{name}\"; limit 5;")
         headers = {
             "Client-ID": f"{self.client_id}",
             "Authorization": f"Bearer {self.access_id}",
@@ -43,7 +43,8 @@ class Igdb:
     def get_game_by_id(self, game_id):
         url = "https://api.igdb.com/v4/games"
 
-        payload = f"fields artworks, cover, dlcs, expansions, franchises, genres, name, platforms, rating, release_dates, screenshots, summary, url, checksum; where id = {game_id};"
+        payload = (f"fields artworks, cover, dlcs, expansions, franchises, genres, name, platforms, rating, "
+                   f"release_dates, screenshots, summary, url, checksum; where id = {game_id};")
         headers = {
             "Client-ID": f"{self.client_id}",
             "Authorization": f"Bearer {self.access_id}",
@@ -91,7 +92,7 @@ class Igdb:
         }
 
         response = requests.post(url, data=payload, headers=headers)
-        
+
         data = response.json()
         for item in data:
             item['url'] = item['url'].replace('t_thumb', 't_cover_big')
@@ -102,8 +103,8 @@ class Igdb:
             print(f"Failed to parse screenshot data: {e}")
             return
 
+
 if __name__ == "__main__":
     igdb_query = Igdb("halo")
     igdb_query.get_config()
     print(igdb_query.get_game_cover(191111))
-
