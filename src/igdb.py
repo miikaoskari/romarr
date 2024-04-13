@@ -126,6 +126,6 @@ class Igdb:
 
 
 if __name__ == "__main__":
-    igdb_query = Igdb("halo")
+    igdb_query = Igdb()
     igdb_query.get_config()
     print(igdb_query.get_game_cover(191111))

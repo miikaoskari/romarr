@@ -1,10 +1,9 @@
 import os
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from sqlalchemy.engine import create
 from sqlalchemy.orm import Session
 
 from .database import crud, models, schemas
@@ -12,7 +11,6 @@ from .database.helper import create_schema_instances
 from .database.database import SessionLocal, engine
 
 from .igdb import Igdb
-from .game import Game
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -48,18 +46,6 @@ async def read_api():
     return {"message": "hello"}
 
 
-# Serve the frontend
-app.mount("/static", StaticFiles(directory="frontend/build", html=True), name="frontend")
-
-
-@app.get("/{catch_all:path}")
-async def serve_frontend(catch_all: str):
-    if os.path.exists(f"frontend/build/{catch_all}"):
-        return FileResponse(f"frontend/build/{catch_all}")
-    else:
-        return FileResponse("frontend/build/index.html")
-
-
 # Create user
 @app.post("/api/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -92,7 +78,8 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
             franchises = create_schema_instances(game_data.pop("franchises", []), schemas.Franchise, 'franchise')
             genres = create_schema_instances(game_data.pop("genres", []), schemas.Genre, 'genre')
             platforms = create_schema_instances(game_data.pop("platforms", []), schemas.Platform, 'platform')
-            release_dates = create_schema_instances(game_data.pop("release_dates", []), schemas.ReleaseDate, 'release_date')
+            release_dates = create_schema_instances(game_data.pop("release_dates", []), schemas.ReleaseDate,
+                                                    'release_date')
             screenshots = create_schema_instances(game_data.pop("screenshots", []), schemas.Screenshot, 'screenshot')
 
             game = schemas.GameCreate(
@@ -131,7 +118,7 @@ async def search(query):
 
 
 # Get all games from database
-@app.get("/api/games", response_model=list[schemas.Game])
+@app.get("/api/games/all", response_model=list[schemas.Game])
 def read_games(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     games = crud.get_games(db, skip=skip, limit=limit)
     return games
@@ -144,3 +131,15 @@ def read_game(game_id: int, db: Session = Depends(get_db)):
     if game is None:
         raise HTTPException(status_code=404, detail="Game not found")
     return game
+
+
+# Serve the frontend
+app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")
+
+
+@app.get("/{catch_all:path}")
+async def serve_frontend(catch_all: str):
+    if os.path.exists(f"frontend/build/{catch_all}"):
+        return FileResponse(f"frontend/build/{catch_all}")
+    else:
+        return FileResponse("frontend/build/index.html")

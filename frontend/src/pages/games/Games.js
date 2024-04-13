@@ -1,11 +1,12 @@
 import Grid from '../../components/grid/Grid';
 import React, { useEffect } from 'react';
 import { Card } from '../../components';
+
 const Games = () => {
   const [data, setData] = React.useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/v1/games')
+    fetch('http://localhost:8000/api/games/all')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -25,8 +26,15 @@ const Games = () => {
       </div>
       {data.length > 0 ? (
         <Grid>
-          {data.map((image) => (
-            <Card key={image.id} image={image} />
+          {data.map((game) => (
+            <Card
+              key={game.id}
+              name={game.name}
+              cover={game.cover}
+              platforms={game.platforms.map(platform => platform.platform)}
+              rating={game.rating}
+              release_dates={game.release_dates.map(date => date.release_date)}
+            />
           ))}
         </Grid>
       ) : (

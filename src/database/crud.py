@@ -61,7 +61,7 @@ def get_user_by_username(db: Session, username: str):
 
 
 def get_games(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Game).offset(skip).limit(limit).all()
+    return db.query(models.Game).all()
 
 
 def get_game_by_id(db: Session, game_id: int):
