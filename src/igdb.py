@@ -22,6 +22,24 @@ class Igdb:
         self.access_id = config["access_id"]
         self.secret_id = config["secret_id"]
 
+    def get_games_by_name(self, name):
+        url = "https://api.igdb.com/v4/games"
+
+        payload = f"fields cover, name, checksum, release_dates, dlcs, expansions, rating, screenshots, summary, url, artworks; search \"{name}\"; limit 5;"
+        headers = {
+            "Client-ID": f"{self.client_id}",
+            "Authorization": f"Bearer {self.access_id}",
+            "Accept": "application/json"
+        }
+
+        response = requests.post(url, data=payload, headers=headers)
+
+        try:
+            return response.json()
+        except (KeyError, AttributeError) as e:
+            print(f"Failed to parse games: {e}")
+            return
+
     def get_game_by_id(self, game_id):
         url = "https://api.igdb.com/v4/games"
 
