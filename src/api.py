@@ -145,8 +145,6 @@ async def search(query):
 @app.get("/api/games/all", response_model=list[schemas.Game])
 def read_games(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     games = crud.get_games(db, skip=skip, limit=limit)
-    for cover in games:
-        cover.cover_path = os.path.join("/images", cover.cover_path)
     return games
 
 
@@ -158,6 +156,9 @@ def read_game(game_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Game not found")
     return game
 
+
+# Serve the images
+app.mount("/images", StaticFiles(directory="cache", html=False), name="images")
 
 # Serve the frontend
 app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")

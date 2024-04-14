@@ -32,6 +32,7 @@ def create_game(db: Session, game: schemas.GameCreate):
         name=game.name,
         artworks=artworks,
         cover=game.cover,
+        cover_path=game.cover_path,
         dlcs=dlcs,
         expansions=expansions,
         franchises=franchises,
