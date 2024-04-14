@@ -32,3 +32,6 @@ frontend/src/assets/samples/
 
 # remove database
 app.db
+
+# remove image cache
+cache/
