@@ -4,6 +4,11 @@ from typing import Optional, List
 
 class Artwork(BaseModel):
     artwork: int
+    artwork_path: str
+
+
+class ArtworkCreate(Artwork):
+    pass
 
 
 class DLC(BaseModel):
@@ -32,12 +37,18 @@ class ReleaseDate(BaseModel):
 
 class Screenshot(BaseModel):
     screenshot: int
+    screenshot_path: str
+
+
+class ScreenshotCreate(Screenshot):
+    pass
 
 
 class GameBase(BaseModel):
     name: str
     artworks: Optional[List[Artwork]] = None
     cover: Optional[int] = None
+    cover_path: Optional[str] = None
     dlcs: Optional[List[DLC]] = None
     expansions: Optional[List[Expansion]] = None
     franchises: Optional[List[Franchise]] = None

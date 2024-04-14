@@ -10,6 +10,8 @@ from .database import crud, models, schemas
 from .database.helper import create_schema_instances
 from .database.database import SessionLocal, engine
 
+from .filesystem.imagecache import ImageCache
+
 from .igdb import Igdb
 
 models.Base.metadata.create_all(bind=engine)
@@ -72,7 +74,30 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
         if isinstance(game_data, list) and len(game_data) == 1:  # Check if it's a list with one item
             game_data = game_data[0]  # Extract the dictionary from the list
 
-            artworks = create_schema_instances(game_data.pop("artworks", []), schemas.Artwork, 'artwork')
+            image_cache = ImageCache("cache")
+
+            cover_id = game_data.get("cover", None)
+            if cover_id:
+                cover_url = igdb.get_game_cover(cover_id)
+                print(cover_url)
+                game_data["cover_path"] = image_cache.get_image(cover_url[0]["url"], "cover_big")
+
+            # Fetch and save artworks
+            artwork_ids = game_data.pop("artworks", [])
+            artworks = []
+            for artwork_id in artwork_ids:
+                artwork_url = igdb.get_game_artwork(artwork_id)
+                artwork_path = image_cache.get_image(artwork_url[0]["url"], "artwork_big")
+                artworks.append(schemas.ArtworkCreate(artwork=artwork_id, artwork_path=artwork_path))
+
+            # Fetch and save screenshots
+            screenshot_ids = game_data.pop("screenshots", [])
+            screenshots = []
+            for screenshot_id in screenshot_ids:
+                screenshot_url = igdb.get_game_screenshots(screenshot_id)
+                screenshot_path = image_cache.get_image(screenshot_url[0]["url"], "screenshot_big")
+                screenshots.append(schemas.ScreenshotCreate(screenshot=screenshot_id, screenshot_path=screenshot_path))
+
             dlcs = create_schema_instances(game_data.pop("dlcs", []), schemas.DLC, 'dlc')
             expansions = create_schema_instances(game_data.pop("expansions", []), schemas.Expansion, 'expansion')
             franchises = create_schema_instances(game_data.pop("franchises", []), schemas.Franchise, 'franchise')
@@ -80,7 +105,6 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
             platforms = create_schema_instances(game_data.pop("platforms", []), schemas.Platform, 'platform')
             release_dates = create_schema_instances(game_data.pop("release_dates", []), schemas.ReleaseDate,
                                                     'release_date')
-            screenshots = create_schema_instances(game_data.pop("screenshots", []), schemas.Screenshot, 'screenshot')
 
             game = schemas.GameCreate(
                 **game_data,

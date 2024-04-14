@@ -71,12 +71,8 @@ class Igdb:
 
         response = requests.post(url, data=payload, headers=headers)
 
-        data = response.json()
-        for item in data:
-            item['url'] = item['url'].replace('t_thumb', 't_cover_big')
-
         try:
-            return json.dumps(data, indent=2)
+            return response.json()
         except (KeyError, AttributeError) as e:
             print(f"Failed to parse cover data: {e}")
             return
@@ -93,12 +89,8 @@ class Igdb:
 
         response = requests.post(url, data=payload, headers=headers)
 
-        data = response.json()
-        for item in data:
-            item['url'] = item['url'].replace('t_thumb', 't_cover_big')
-
         try:
-            return json.dumps(data, indent=2)
+            return response.json()
         except (KeyError, AttributeError) as e:
             print(f"Failed to parse screenshot data: {e}")
             return
@@ -114,12 +106,9 @@ class Igdb:
         }
 
         response = requests.post(url, data=payload, headers=headers)
-        data = response.json()
-        for item in data:
-            item['url'] = item['url'].replace('t_thumb', 't_cover_big')
 
         try:
-            return json.dumps(data, indent=2)
+            return response.json()
         except (KeyError, AttributeError) as e:
             print(f"Failed to parse screenshot data: {e}")
             return

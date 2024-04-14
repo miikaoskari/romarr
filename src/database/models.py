@@ -12,6 +12,7 @@ class Game(Base):
     id: Mapped[int] = Column(Integer, primary_key=True)
     artworks: Mapped[List["Artwork"]] = relationship("Artwork", back_populates="game")
     cover = Column(String)
+    cover_path = Column(String)
     dlcs: Mapped[List["DLC"]] = relationship("DLC", back_populates="game")
     expansions: Mapped[List["Expansion"]] = relationship("Expansion", back_populates="game")
     franchises: Mapped[List["Franchise"]] = relationship("Franchise", back_populates="game")
@@ -24,9 +25,6 @@ class Game(Base):
     summary = Column(String)
     url = Column(String)
     checksum = Column(String)
-    cover_path = Column(String)
-    artworks_path = Column(String)
-    screenshots_path = Column(String)
 
 
 class Artwork(Base):
@@ -34,8 +32,10 @@ class Artwork(Base):
 
     id: Mapped[int] = Column(Integer, primary_key=True)
     artwork = Column(Integer)
+    artwork_path = Column(String)
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="artworks")
+
 
 class DLC(Base):
     __tablename__ = 'dlcs'
@@ -45,6 +45,7 @@ class DLC(Base):
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="dlcs")
 
+
 class Expansion(Base):
     __tablename__ = 'expansions'
 
@@ -53,6 +54,7 @@ class Expansion(Base):
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="expansions")
 
+
 class Franchise(Base):
     __tablename__ = 'franchises'
 
@@ -60,6 +62,7 @@ class Franchise(Base):
     franchise = Column(Integer)
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="franchises")
+
 
 class Genre(Base):
     __tablename__ = 'genres'
@@ -93,6 +96,7 @@ class Screenshot(Base):
 
     id: Mapped[int] = Column(Integer, primary_key=True)
     screenshot = Column(Integer)
+    screenshot_path = Column(String)
     parent_id: Mapped[int] = Column(Integer, ForeignKey("games.id"))
     game: Mapped[Game] = relationship("Game", back_populates="screenshots")
 
