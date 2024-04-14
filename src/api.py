@@ -158,7 +158,7 @@ def read_game(game_id: int, db: Session = Depends(get_db)):
 
 
 # Serve the images
-app.mount("/images", StaticFiles(directory="cache", html=False), name="images")
+app.mount("/cache", StaticFiles(directory="cache", html=False), name="images")
 
 # Serve the frontend
 app.mount("/", StaticFiles(directory="frontend/build", html=True), name="frontend")

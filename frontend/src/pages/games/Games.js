@@ -30,7 +30,7 @@ const Games = () => {
             <Card
               key={game.id}
               name={game.name}
-              cover={game.cover}
+              cover_url={game.cover_path}
               platforms={game.platforms.map(platform => platform.platform)}
               rating={game.rating}
               release_dates={game.release_dates.map(date => date.release_date)}
