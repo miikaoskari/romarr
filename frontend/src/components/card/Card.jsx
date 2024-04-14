@@ -14,7 +14,7 @@ const Card = ({
   return (
     <div className="max-h-md auto mx-2 my-2 max-w-md rounded-3xl border-2 border-gray-800 bg-gray-800 p-6 shadow-md">
       {children}
-      {cover_url && <img src={`${baseUrl}/${cover_url}`} alt={name} className="w-full h-64 rounded-md"/>}
+      {cover_url && <img src={`${baseUrl}/${cover_url}`} alt={name} className="w-full h-auto rounded-md mb-4"/>}
       {name && <p className="text-white-700 text-base font-bold">{name}</p>}
       {platforms && <p className="text-white-700 text-base mt-2">{platforms}</p>}
       {rating && <SmileyRating rating={rating | 0} size={"lg"}/>}
