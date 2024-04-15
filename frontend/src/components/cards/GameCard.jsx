@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { SmileyRating } from '../index';
 
-const Card = ({
+const GameCard = ({
   children,
   name = "N/A",
   cover_url = "N/A",
@@ -22,7 +22,7 @@ const Card = ({
   );
 };
 
-Card.propTypes = {
+GameCard.propTypes = {
   children: propTypes.node,
   name: propTypes.string,
   cover_url: propTypes.string,
@@ -30,4 +30,4 @@ Card.propTypes = {
   rating: propTypes.number,
 };
 
-export default Card;
+export default GameCard;

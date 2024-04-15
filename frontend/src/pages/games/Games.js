@@ -1,6 +1,6 @@
 import Grid from '../../components/grid/Grid';
 import React, { useEffect } from 'react';
-import { Card } from '../../components';
+import { GameCard } from '../../components';
 
 const Games = () => {
   const [data, setData] = React.useState([]);
@@ -27,7 +27,7 @@ const Games = () => {
       {data.length > 0 ? (
         <Grid>
           {data.map((game) => (
-            <Card
+            <GameCard
               key={game.id}
               name={game.name}
               cover_url={game.cover_path}

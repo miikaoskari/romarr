@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Card, Grid } from '../../components';
+import { SearchCard, Grid } from '../../components';
 
 const Search = () => {
   const [results, setResults] = React.useState([]);
@@ -20,9 +20,17 @@ const Search = () => {
   return (
     <div>
       <Grid>
-        {results.map((image) => (
-          <Card key={image.id} image={image} />
-        ))}
+        {results.map((game) => (
+            <SearchCard
+              key={game.id}
+              name={game.name}
+              cover_url={game.cover_path}
+              platforms={game.platforms.map(platform => platform.platform)}
+              rating={game.rating}
+              release_dates={game.release_dates.map(date => date.release_date)}
+            />
+          ))}
+
       </Grid>
     </div>
   );

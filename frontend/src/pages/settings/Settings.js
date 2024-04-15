@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Grid, Modal } from '../../components';
+import { Button, IndexerCard, ClientCard, Grid, Modal } from '../../components';
 
 const Settings = () => {
   const [isOpen, setIsOpen] = useState({ type: '', open: false });
@@ -52,7 +52,7 @@ const Settings = () => {
         {indexers.length > 0 ? (
           <Grid>
             {indexers.map((indexer) => (
-              <Card key={indexer.id} indexer={indexer} />
+              <IndexerCard key={indexer.id} indexer={indexer} />
             ))}
           </Grid>
         ) : (
@@ -72,7 +72,7 @@ const Settings = () => {
         {clients.length > 0 ? (
           <Grid>
             {clients.map((client) => (
-              <Card key={client.id} client={client} />
+              <ClientCard key={client.id} client={client} />
             ))}
           </Grid>
         ) : (
