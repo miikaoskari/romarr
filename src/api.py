@@ -1,9 +1,13 @@
 import os
+from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from passlib.context import CryptContext
+
 from sqlalchemy.orm import Session
 
 from .database import crud, models, schemas
@@ -32,6 +36,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Security
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 
 # Dependency
 def get_db():
@@ -46,6 +55,16 @@ def get_db():
 @app.get("/api")
 async def read_api():
     return {"message": "hello"}
+
+
+# Login
+@app.post("/api/token")
+async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_username(db, username=form_data.username)
+    if db_user is None:
+        raise HTTPException(status_code=400, detail="Incorrect username")
+
+    # TODO: verify password
 
 
 # Create user
