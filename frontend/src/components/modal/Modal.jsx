@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { Fragment, useState } from 'react';
+import { Switch, Dialog, Transition } from '@headlessui/react';
 import { Button } from '../index';
 import propTypes from 'prop-types';
+import TextField from '../textfield/TextField';
 
 const Modal = ({ isOpen, closeModal, title }) => {
+  const [enabled, setEnabled] = useState(false);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -37,9 +39,46 @@ const Modal = ({ isOpen, closeModal, title }) => {
                 <div className="mt-2">
                   <p className="text-sm text-gray-500"></p>
                 </div>
-
                 <div className="mt-4">
-                  <Button title={'Save'} onClick={closeModal}></Button>
+                  <div className={'columns mb-2 mt-2'}>
+                    <div className={'columns-1'}>
+                      <label className={'text-sm text-gray-700'}>Name</label>
+                      <TextField></TextField>
+                    </div>
+                    <div className={'columns-1'}>
+                      <label className={'text-sm text-gray-700'}>URL</label>
+                      <TextField></TextField>
+                    </div>
+                    <div className={'columns-1'}>
+                      <label className={'text-sm text-gray-700'}>API Key</label>
+                      <TextField></TextField>
+                    </div>
+                    <div className={'flex py-4'}>
+                      <Switch
+                        checked={enabled}
+                        onChange={setEnabled}
+                        className={`${
+                          enabled ? 'bg-blue-600' : 'bg-gray-200'
+                        } relative inline-flex h-6 w-11 items-center rounded-full`}
+                      >
+                        <span
+                          className={`${
+                            enabled ? 'translate-x-6' : 'translate-x-1'
+                          } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+                        />
+                      </Switch>
+                      <label className={'text-sm text-gray-700 px-2'}>Enable</label>
+                    </div>
+                  </div>
+                  <div></div>
+                  <div className={'flex'}>
+                    <div className={'flex-1'}>
+                      <Button title={'Save'} onClick={closeModal}></Button>
+                    </div>
+                    <div className={'flex-2'}>
+                      <Button title={'Cancel'} onClick={closeModal}></Button>
+                    </div>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
