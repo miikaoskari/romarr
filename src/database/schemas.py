@@ -73,6 +73,29 @@ class Game(GameBase):
         from_attributes = True
 
 
+class Indexer(BaseModel):
+    name = str
+    url = str
+    api_key = str
+    enabled = bool
+
+
+class IndexerCreate(Indexer):
+    pass
+
+
+class Client(BaseModel):
+    name = str
+    url = str
+    client_id = str
+    client_secret = str
+    enabled = bool
+
+
+class ClientCreate(Client):
+    pass
+
+
 class UserBase(BaseModel):
     username: str
 

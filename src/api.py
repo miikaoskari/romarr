@@ -143,6 +143,24 @@ def create_game(game_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Game not found in IGDB")
 
 
+# Add indexer to database
+@app.post("/api/indexers/", response_model=schemas.Indexer)
+def create_indexer(indexer: schemas.IndexerCreate, db: Session = Depends(get_db)):
+    db_indexer = crud.get_indexer_by_name(db, name=indexer.name)
+    if db_indexer:
+        raise HTTPException(status_code=400, detail="Indexer already registered")
+    return crud.create_indexer(db=db, indexer=indexer)
+
+
+# Add client to database
+@app.post("/api/clients/", response_model=schemas.Client)
+def create_client(client: schemas.ClientCreate, db: Session = Depends(get_db)):
+    db_client = crud.get_client_by_name(db, name=client.name)
+    if db_client:
+        raise HTTPException(status_code=400, detail="Client already registered")
+    return crud.create_client(db=db, client=client)
+
+
 # Get user by id
 @app.get("/api/users/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):

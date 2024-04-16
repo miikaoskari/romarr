@@ -52,6 +52,23 @@ def create_game(db: Session, game: schemas.GameCreate):
     return db_game
 
 
+def create_indexer(db: Session, indexer: schemas.IndexerCreate):
+    db_indexer = models.Indexer(name=indexer.name, url=indexer.url, api_key=indexer.api_key, enabled=indexer.enabled)
+    db.add(db_indexer)
+    db.commit()
+    db.refresh(db_indexer)
+    return db_indexer
+
+
+def create_client(db: Session, client: schemas.ClientCreate):
+    db_client = models.Client(name=client.name, url=client.url, client_id=client.client_id,
+                              client_secret=client.client_secret, enabled=client.enabled)
+    db.add(db_client)
+    db.commit()
+    db.refresh(db_client)
+    return db_client
+
+
 # READ
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
@@ -71,6 +88,15 @@ def get_games(db: Session, skip: int = 0, limit: int = 100):
 
 def get_game_by_id(db: Session, game_id: int):
     return db.query(models.Game).filter(models.Game.id == game_id).first()
+
+
+def get_indexer_by_name(db: Session, name: str):
+    return db.query(models.Indexer).filter(models.Indexer.name == name).first()
+
+
+def get_client_by_name(db: Session, name: str):
+    return db.query(models.Client).filter(models.Client.name == name).first()
+
 
 # UPDATE
 

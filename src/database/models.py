@@ -27,6 +27,27 @@ class Game(Base):
     checksum = Column(String)
 
 
+class Indexer(Base):
+    __tablename__ = 'indexers'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    url = Column(String)
+    api_key = Column(String)
+    enabled = Column(Boolean)
+
+
+class Client(Base):
+    __tablename__ = 'clients'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    url = Column(String)
+    client_id = Column(String)
+    client_secret = Column(String)
+    enabled = Column(Boolean)
+
+
 class Artwork(Base):
     __tablename__ = 'artworks'
 
