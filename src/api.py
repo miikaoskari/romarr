@@ -195,6 +195,8 @@ def read_game(game_id: int, db: Session = Depends(get_db)):
 
 
 # Serve the images
+if not os.path.exists("cache"):
+    os.makedirs("cache")
 app.mount("/cache", StaticFiles(directory="cache", html=False), name="images")
 
 # Serve the frontend
