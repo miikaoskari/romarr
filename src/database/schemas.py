@@ -74,10 +74,14 @@ class Game(GameBase):
 
 
 class Indexer(BaseModel):
-    name = str
-    url = str
-    api_key = str
-    enabled = bool
+    id: int
+    name: str
+    url: str
+    api_key: str
+    enabled: bool
+
+    class Config:
+        from_attributes = True
 
 
 class IndexerCreate(Indexer):
@@ -85,11 +89,15 @@ class IndexerCreate(Indexer):
 
 
 class Client(BaseModel):
-    name = str
-    url = str
-    client_id = str
-    client_secret = str
-    enabled = bool
+    id: int
+    name: str
+    url: str
+    client_id: str
+    client_secret: str
+    enabled: bool
+
+    class Config:
+        from_attributes = True
 
 
 class ClientCreate(Client):
