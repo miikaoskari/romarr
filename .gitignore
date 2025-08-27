@@ -26,6 +26,7 @@ yarn-error.log*
 
 # remove private api key
 config.json
+token_response.json
 
 # remove samples
 frontend/src/assets/samples/
@@ -35,3 +36,5 @@ app.db
 
 # remove image cache
 cache/
+
+.venv/
