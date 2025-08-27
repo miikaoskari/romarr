@@ -11,11 +11,7 @@ token = read_token()
 
 app = FastAPI()
 
-
-# Serve the API
-@app.get("/api")
-async def read_api():
-    return {"message": "hello"}
+igdb_api = IGDBApi(token)
 
 
 @app.get("/api/games")
@@ -25,13 +21,19 @@ async def search_games(search: str, limit: int = 20):
     Runs a search for given parameter
     """
     try:
-        api = IGDBApi(token)
-        return api.search_games(search, limit)
+        return igdb_api.search_games(search, limit)
     except HTTPException:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
 @app.post("/api/add_game")
-async def add_game():
-    pass
+async def add_game(igdb_id: int):
+    """Query IGDB for game and add to database.
+    """
+    try:
+        return igdb_api.get_game(igdb_id)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
