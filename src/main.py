@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException
 import json
-from typing import Optional
-from igdb.wrapper import IGDBWrapper
+
+from igdb_api import IGDBApi
 
 def read_token() -> dict:
-    with open("src/token_response.json", "r") as f:
+    with open("token_response.json", "r") as f:
         return json.loads(f.read())
     
 token = read_token()
@@ -25,15 +25,8 @@ async def search_games(search: str, limit: int = 20):
     Runs a search for given parameter
     """
     try:
-        wrapper = IGDBWrapper(token['client_id'], token['access_token'])
-
-        query = f'search "{search}"; fields id,name,summary,cover.url,first_release_date; limit {limit};'
-
-        byte_array = wrapper.api_request("games", query)
-        text = byte_array.decode("utf-8")
-        data = json.loads(text)
-        return {"count": len(data), "results": data}
-
+        api = IGDBApi(token)
+        return api.search_games(search, limit)
     except HTTPException:
         raise
     except Exception as e:
