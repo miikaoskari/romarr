@@ -11,10 +11,14 @@ class IGDBApi():
         text = byte_array.decode("utf-8")
         return json.loads(text)
     
-    def _api_request(self, query: str):
-        byte_array = self.wrapper.api_request("games", query)
+    def _api_request(self, query: str, endpoint: str):
+        byte_array = self.wrapper.api_request(endpoint, query)
         return self._decode(byte_array)
 
     def search_games(self, search: str, limit: int):
         query = f'search "{search}"; fields id,name,summary,cover.url,first_release_date; limit {limit};'
-        return self._api_request(query)
+        return self._api_request(query, "games")
+    
+    def get_game(self, igdb_id: int):
+        query = f'fields id,name,summary,cover.url,first_release_date; where id = {igdb_id};'
+        return self._api_request(query, "games")
