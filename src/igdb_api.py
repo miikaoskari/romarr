@@ -16,9 +16,9 @@ class IGDBApi():
         return self._decode(byte_array)
 
     def search_games(self, search: str, limit: int):
-        query = f'search "{search}"; fields id,name,summary,cover.url,first_release_date; limit {limit};'
+        query = f'search "{search}"; fields id,name,summary,cover.url,first_release_date,platforms; limit {limit};'
         return self._api_request(query, "games")
     
     def get_game(self, igdb_id: int):
-        query = f'fields id,name,summary,cover.url,first_release_date; where id = {igdb_id};'
+        query = f'fields id,name,summary,cover.url,first_release_date,platforms; where id = {igdb_id};'
         return self._api_request(query, "games")
