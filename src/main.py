@@ -1,7 +1,13 @@
 from fastapi import FastAPI, HTTPException
 import json
+from typing import Annotated
 
+from fastapi import Depends, FastAPI, HTTPException
+from sqlmodel import Session
+
+from db import get_session
 from igdb_api import IGDBApi
+
 
 def read_token() -> dict:
     with open("token_response.json", "r") as f:
@@ -13,6 +19,7 @@ app = FastAPI()
 
 igdb_api = IGDBApi(token)
 
+SessionDep = Annotated[Session, Depends(get_session)]
 
 @app.get("/api/games")
 async def search_games(search: str, limit: int = 20):
