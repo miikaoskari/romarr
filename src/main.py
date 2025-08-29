@@ -1,4 +1,3 @@
-from fastapi import FastAPI, HTTPException
 import json
 from typing import Annotated
 
@@ -44,3 +43,9 @@ async def add_game(igdb_id: int):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.delete("/api/delete_game")
+async def delete_game(igdb_id: int):
+    """Delete game from database
+    """
+    pass
