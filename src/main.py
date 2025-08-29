@@ -20,7 +20,7 @@ igdb_api = IGDBApi(token)
 
 SessionDep = Annotated[Session, Depends(get_session)]
 
-@app.get("/api/games")
+@app.get("/api/igdb")
 async def search_games(search: str, limit: int = 20):
     """Query IGDB for games and return JSON results.
 
@@ -33,8 +33,19 @@ async def search_games(search: str, limit: int = 20):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/api/add_game")
-async def add_game(igdb_id: int):
+@app.get("/api/games")
+async def read_games(session: SessionDep):
+    """Read all games from database
+    """
+    try:
+        return 
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/api/games/{igdb_id}")
+async def add_game(igdb_id: int, session: SessionDep):
     """Query IGDB for game and add to database.
     """
     try:
@@ -44,8 +55,8 @@ async def add_game(igdb_id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.delete("/api/delete_game")
-async def delete_game(igdb_id: int):
+@app.delete("/api/games/{igdb_id}")
+async def delete_game(igdb_id: int, session: SessionDep):
     """Delete game from database
     """
     pass
