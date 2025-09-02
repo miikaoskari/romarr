@@ -54,6 +54,10 @@ async def add_game(igdb_id: int, session: SessionDep):
     """Query IGDB for game and add to database.
     """
     try:
+        existing = session.exec(select(Game).where(Game.igdb_id == igdb_id)).first()
+        if existing:
+            return existing
+
         igdb_data = igdb_api.get_game(igdb_id)[0]
 
         game = Game(
