@@ -1,10 +1,11 @@
 import json
+from contextlib import asynccontextmanager
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException
-from sqlmodel import Session
+from fastapi import Depends, FastAPI, HTTPException, Query
+from sqlmodel import Session, select
 
-from db import get_session
+from db import Game, get_session, create_db_and_tables
 from igdb_api import IGDBApi
 
 
@@ -13,12 +14,16 @@ def read_token() -> dict:
         return json.loads(f.read())
     
 token = read_token()
-
-app = FastAPI()
-
 igdb_api = IGDBApi(token)
 
 SessionDep = Annotated[Session, Depends(get_session)]
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/api/igdb")
 async def search_games(search: str, limit: int = 20):
