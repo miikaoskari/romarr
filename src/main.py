@@ -39,11 +39,11 @@ async def search_games(search: str, limit: int = 20):
         raise HTTPException(status_code=500, detail=str(e))
     
 @app.get("/api/games")
-async def read_games(session: SessionDep):
+async def read_games(session: SessionDep, offset: int = 0, limit: Annotated[int, Query(le=100)] = 100):
     """Read all games from database
     """
     try:
-        return 
+        return session.exec(select(Game).offset(offset).limit(limit)).all()
     except HTTPException:
         raise
     except Exception as e:
@@ -54,7 +54,18 @@ async def add_game(igdb_id: int, session: SessionDep):
     """Query IGDB for game and add to database.
     """
     try:
-        return igdb_api.get_game(igdb_id)
+        igdb_data = igdb_api.get_game(igdb_id)[0]
+
+        game = Game(
+            igdb_id=igdb_data['id'],
+            cover_url=igdb_data['cover']['url'],
+            name=igdb_data['name']
+        )
+
+        session.add(game)
+        session.commit()
+        session.refresh(game)
+        return game
     except HTTPException:
         raise
     except Exception as e:
