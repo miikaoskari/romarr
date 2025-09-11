@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-@app.get("/api/igdb")
+@app.get("/api/igdb", tags=["games"])
 async def search_games(search: str, limit: int = 20):
     """Query IGDB for games and return JSON results.
 
@@ -38,7 +38,7 @@ async def search_games(search: str, limit: int = 20):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.get("/api/games")
+@app.get("/api/games", tags=["games"])
 async def read_games(session: SessionDep, offset: int = 0, limit: Annotated[int, Query(le=100)] = 100):
     """Read all games from database
     """
@@ -49,7 +49,7 @@ async def read_games(session: SessionDep, offset: int = 0, limit: Annotated[int,
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/api/games/{igdb_id}")
+@app.post("/api/games/{igdb_id}", tags=["games"])
 async def add_game(igdb_id: int, session: SessionDep):
     """Add a new game by given igdb id
     """
@@ -75,7 +75,7 @@ async def add_game(igdb_id: int, session: SessionDep):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.delete("/api/games/{igdb_id}")
+@app.delete("/api/games/{igdb_id}", tags=["games"])
 async def delete_game(igdb_id: int, session: SessionDep):
     """Delete game from database by igdb id
     """
