@@ -21,4 +21,4 @@ class IGDBApi():
     
     def get_game(self, igdb_id: int):
         query = f'fields id,name,summary,cover.url,first_release_date,platforms; where id = {igdb_id};'
-        return self._api_request(query, "games")
+        return self._api_request(query, "games")[0]

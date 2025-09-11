@@ -58,7 +58,7 @@ async def add_game(igdb_id: int, session: SessionDep):
         if existing:
             return existing
 
-        igdb_data = igdb_api.get_game(igdb_id)[0]
+        igdb_data = igdb_api.get_game(igdb_id)
 
         game = Game(
             igdb_id=igdb_data['id'],
