@@ -51,7 +51,7 @@ async def read_games(session: SessionDep, offset: int = 0, limit: Annotated[int,
     
 @app.post("/api/games/{igdb_id}")
 async def add_game(igdb_id: int, session: SessionDep):
-    """Query IGDB for game and add to database.
+    """Add a new game by given igdb id
     """
     try:
         existing = session.exec(select(Game).where(Game.igdb_id == igdb_id)).first()
@@ -77,6 +77,18 @@ async def add_game(igdb_id: int, session: SessionDep):
     
 @app.delete("/api/games/{igdb_id}")
 async def delete_game(igdb_id: int, session: SessionDep):
-    """Delete game from database
+    """Delete game from database by igdb id
     """
-    pass
+    try:
+        existing_game = session.exec(select(Game).where(Game.igdb_id == igdb_id)).first()
+
+        if not existing_game:
+            raise HTTPException(status_code=404, detail="Game not found")
+
+        session.delete(existing_game)
+        session.commit()
+        return {"ok": True}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
