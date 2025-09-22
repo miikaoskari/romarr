@@ -4,8 +4,9 @@ from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Session, select
+from torznab import Torznab
 
-from db import Game, get_session, create_db_and_tables
+from db import Game, Indexer, get_session, create_db_and_tables, IndexerCreate, IndexerPublic
 from igdb_api import IGDBApi
 
 
@@ -92,3 +93,42 @@ async def delete_game(igdb_id: int, session: SessionDep):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/games/{igdb_id}/indexers/results", tags=["games"])
+async def find_results_from_indexers(igdb_id: int, session: SessionDep):
+    try:
+        indexers = session.exec(select(Indexer))
+        game = session.exec(select(Game).where(Game.igdb_id == igdb_id)).first()
+
+        if not game:
+            raise HTTPException(status_code=404, detail="Game not found")
+
+        for indexer in indexers:
+            if indexer.api_key:
+                tn = Torznab(indexer.api_key)
+                tn.search_torrent(game.name, indexer.url)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/indexers", tags=["indexers"], response_model=IndexerPublic)
+async def add_indexer(indexer: IndexerCreate, session: SessionDep):
+    try:
+        db_indexer = Indexer.model_validate(indexer)
+        session.add(db_indexer)
+        session.commit()
+        session.refresh(db_indexer)
+        return db_indexer
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.delete("/api/indexers/{indexer_id}", tags=["indexers"])
+async def delete_indexer(indexer_id: int, session: SessionDep):
+    indexer = session.get(Indexer, indexer_id)
+    if not indexer:
+        raise HTTPException(status_code=404, detail="Indexer not found")
+    session.delete(indexer)
+    session.commit()
+    return {"ok": True}
