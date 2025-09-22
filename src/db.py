@@ -4,8 +4,8 @@ from sqlmodel import SQLModel, Field, create_engine, Session
 """
 
 class GameBase(SQLModel):
-    igdb_id: int | None = None
-    name: str | None = None
+    igdb_id: int
+    name: str
     summary: str | None = None
     cover_url: str | None = None
     first_release_date: int | None = None
@@ -49,9 +49,8 @@ class PlatformPublic(PlatformBase):
 """
 
 class IndexerBase(SQLModel):
-    url: str | None
-    username: str | None = None
-    password: str | None = None
+    url: str
+    api_key: str | None
 
 class Indexer(IndexerBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
